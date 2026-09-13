@@ -1,0 +1,33 @@
+name: Build and release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-windows-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller tkinterdnd2 openpyxl
+
+      - name: Build SubtitleFilter.exe
+        run: |
+          pyinstaller --onefile --windowed --name "SubtitleFilter" --icon "app_icon.ico" --collect-all tkinterdnd2 subtitle_filter_app.py
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/SubtitleFilter.exe
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
