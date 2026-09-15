@@ -6,11 +6,10 @@
 
 **Оставляет в субтитрах только то, что важно.**
 
-[![Release](https://img.shields.io/github/v/release/KarasEklobys/Subtitle-Filter?style=for-the-badge&label=version&color=0071e3&labelColor=1e1e1e)](../../releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/KarasEklobys/Subtitle-Filter/total?style=for-the-badge&color=0a84ff&labelColor=1e1e1e)](../../releases)
+[![Version](https://img.shields.io/badge/version-1.2.0-0071e3?style=for-the-badge&labelColor=1e1e1e)](../../releases/latest)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-0078D6?style=for-the-badge&logo=windows&logoColor=white&labelColor=1e1e1e)](#требования)
 [![Made with Python](https://img.shields.io/badge/made%20with-Python%20%2B%20Tkinter-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=1e1e1e)](#для-разработчиков)
-[![Last commit](https://img.shields.io/github/last-commit/KarasEklobys/Subtitle-Filter?style=for-the-badge&color=success&labelColor=1e1e1e)](../../commits/main)
+[![Just an .exe](https://img.shields.io/badge/install-just%20an%20.exe-success?style=for-the-badge&labelColor=1e1e1e)](#как-скачать)
 
 Программа для Windows, которая находит в `.srt` / `.vtt` / `.ass` / `.ssa`
 файлах строки с нужными словами и убирает всё остальное — так можно за
