@@ -29,27 +29,27 @@
 <td width="50%">
 
 **Тёмная тема**
-<img src="docs/screenshots/main-dark.png" alt="Главное окно, тёмная тема" />
+<img src="docs/screenshots/main-dark.jpg" alt="Главное окно, тёмная тема" />
 
 </td>
 <td width="50%">
 
 **Светлая тема**
-<img src="docs/screenshots/main-light.png" alt="Главное окно, светлая тема" />
+<img src="docs/screenshots/main-light.jpg" alt="Главное окно, светлая тема" />
 
 </td>
 </tr>
 <tr>
 <td width="50%">
 
-**Настройки поиска** — целые слова, regex, режим «оставить/убрать», фильтр по времени
-<img src="docs/screenshots/search-settings.png" alt="Вкладка настроек поиска" />
+**Настройки поиска** (тёмная тема) — целые слова, regex, режим «оставить/убрать», фильтр по времени
+<img src="docs/screenshots/settings-dark.jpg" alt="Вкладка настроек поиска, тёмная тема" />
 
 </td>
 <td width="50%">
 
-**Результат обработки** — сводка по строкам и файлам сразу после запуска
-<img src="docs/screenshots/processing-result.png" alt="Сводка после обработки файлов" />
+**Настройки поиска** (светлая тема)
+<img src="docs/screenshots/settings-light.jpg" alt="Вкладка настроек поиска, светлая тема" />
 
 </td>
 </tr>
