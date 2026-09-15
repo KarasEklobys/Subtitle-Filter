@@ -1,11 +1,60 @@
+<div align="center">
+
+<img src="docs/logo.png" width="96" height="96" alt="Subtitle Filter logo" />
+
 # Subtitle Filter
 
 **Оставляет в субтитрах только то, что важно.**
+
+[![Release](https://img.shields.io/github/v/release/KarasEklobys/Subtitle-Filter?style=for-the-badge&label=version&color=0071e3&labelColor=1e1e1e)](../../releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/KarasEklobys/Subtitle-Filter/total?style=for-the-badge&color=0a84ff&labelColor=1e1e1e)](../../releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-0078D6?style=for-the-badge&logo=windows&logoColor=white&labelColor=1e1e1e)](#требования)
+[![Made with Python](https://img.shields.io/badge/made%20with-Python%20%2B%20Tkinter-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=1e1e1e)](#для-разработчиков)
+[![Last commit](https://img.shields.io/github/last-commit/KarasEklobys/Subtitle-Filter?style=for-the-badge&color=success&labelColor=1e1e1e)](../../commits/main)
 
 Программа для Windows, которая находит в `.srt` / `.vtt` / `.ass` / `.ssa`
 файлах строки с нужными словами и убирает всё остальное — так можно за
 секунды найти в видео нужные моменты, вместо того чтобы вручную
 пролистывать десятки минут субтитров.
+
+[Скачать](#как-скачать) · [Возможности](#возможности) · [Скриншоты](#скриншоты) · [Как пользоваться](#как-пользоваться) · [Для разработчиков](#для-разработчиков)
+
+</div>
+
+---
+
+## Скриншоты
+
+<table>
+<tr>
+<td width="50%">
+
+**Тёмная тема**
+<img src="docs/screenshots/main-dark.png" alt="Главное окно, тёмная тема" />
+
+</td>
+<td width="50%">
+
+**Светлая тема**
+<img src="docs/screenshots/main-light.png" alt="Главное окно, светлая тема" />
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+**Настройки поиска** — целые слова, regex, режим «оставить/убрать», фильтр по времени
+<img src="docs/screenshots/search-settings.png" alt="Вкладка настроек поиска" />
+
+</td>
+<td width="50%">
+
+**Результат обработки** — сводка по строкам и файлам сразу после запуска
+<img src="docs/screenshots/processing-result.png" alt="Сводка после обработки файлов" />
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -131,11 +180,14 @@ YouTube, Whisper или сделанные в Aegisub). Таймкоды и оф
 
 ## Для разработчиков
 
+<details>
+<summary><strong>Развернуть</strong> — запуск из исходников, CLI-режим, сборка .exe, релизы</summary>
+
 Исходный код — `subtitle_filter_app.py` (Python, tkinter).
 
 ### Запуск без сборки
 
-```
+```bash
 pip install tkinterdnd2 openpyxl
 python subtitle_filter_app.py
 ```
@@ -147,7 +199,7 @@ Excel остаётся экспорт в CSV.
 
 ### Режим командной строки (без интерфейса)
 
-```
+```bash
 python subtitle_filter_app.py --cli --keywords keywords.txt --input subs_folder --mode remove --whole-word --out out_folder
 ```
 
@@ -157,7 +209,7 @@ python subtitle_filter_app.py --cli --keywords keywords.txt --input subs_folder 
 
 ### Сборка .exe
 
-```
+```bash
 pip install pyinstaller tkinterdnd2 openpyxl
 pyinstaller --onefile --windowed --name "SubtitleFilter" --icon "app_icon.ico" --collect-all tkinterdnd2 subtitle_filter_app.py
 ```
@@ -175,7 +227,7 @@ pyinstaller --onefile --windowed --name "SubtitleFilter" --icon "app_icon.ico" -
 с этим файлом — вручную собирать и заливать exe больше не обязательно,
 достаточно создать и запушить тег:
 
-```
+```bash
 git tag v1.2.0
 git push origin v1.2.0
 ```
@@ -188,16 +240,25 @@ GitHub в том же формате (например `v1.2.0`), тогда к�
 обновления» в программе будет работать корректно (а сборка запустится
 автоматически, см. выше).
 
----
-
-## Структура проекта
+### Структура проекта
 
 ```
 subtitle-filter/
 ├── subtitle_filter_app.py       # исходный код программы
 ├── app_icon.ico                  # иконка для сборки .exe
+├── docs/                          # логотип и скриншоты для README
 ├── README.md                      # этот файл
 ├── keywords-example.txt           # пример списка слов
 ├── .github/workflows/release.yml  # автосборка .exe и релиз по тегу vX.Y.Z
 └── .gitignore
 ```
+
+</details>
+
+---
+
+<div align="center">
+
+Если пригодилось — оставь ⭐ репозиторию, это ни к чему не обязывает, но приятно.
+
+</div>
