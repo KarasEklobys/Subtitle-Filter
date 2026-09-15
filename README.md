@@ -10,6 +10,7 @@
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-0078D6?style=for-the-badge&logo=windows&logoColor=white&labelColor=1e1e1e)](#требования)
 [![Made with Python](https://img.shields.io/badge/made%20with-Python%20%2B%20Tkinter-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=1e1e1e)](#для-разработчиков)
 [![Just an .exe](https://img.shields.io/badge/install-just%20an%20.exe-success?style=for-the-badge&labelColor=1e1e1e)](#как-скачать)
+[![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey?style=for-the-badge&labelColor=1e1e1e)](LICENSE)
 
 Программа для Windows, которая находит в `.srt` / `.vtt` / `.ass` / `.ssa`
 файлах строки с нужными словами и убирает всё остальное — так можно за
@@ -248,6 +249,7 @@ subtitle-filter/
 ├── docs/                          # логотип и скриншоты для README
 ├── README.md                      # этот файл
 ├── keywords-example.txt           # пример списка слов
+├── LICENSE                         # лицензия MIT
 ├── .github/workflows/release.yml  # автосборка .exe и релиз по тегу vX.Y.Z
 └── .gitignore
 ```
