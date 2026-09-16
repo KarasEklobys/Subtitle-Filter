@@ -4,26 +4,271 @@
 
 # Subtitle Filter
 
-**Оставляет в субтитрах только то, что важно.**
+**Keeps only the subtitle lines that matter. / Оставляет в субтитрах только то, что важно.**
 
 [![Version](https://img.shields.io/badge/version-1.2.0-0071e3?style=for-the-badge&labelColor=1e1e1e)](../../releases/latest)
-[![Platform](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-0078D6?style=for-the-badge&logo=windows&logoColor=white&labelColor=1e1e1e)](#требования)
-[![Made with Python](https://img.shields.io/badge/made%20with-Python%20%2B%20Tkinter-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=1e1e1e)](#для-разработчиков)
-[![Just an .exe](https://img.shields.io/badge/install-just%20an%20.exe-success?style=for-the-badge&labelColor=1e1e1e)](#как-скачать)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-0078D6?style=for-the-badge&logo=windows&logoColor=white&labelColor=1e1e1e)](#requirements)
+[![Made with Python](https://img.shields.io/badge/made%20with-Python%20%2B%20Tkinter-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=1e1e1e)](#for-developers)
+[![Just an .exe](https://img.shields.io/badge/install-just%20an%20.exe-success?style=for-the-badge&labelColor=1e1e1e)](#how-to-download)
 [![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey?style=for-the-badge&labelColor=1e1e1e)](LICENSE)
 
-Программа для Windows, которая находит в `.srt` / `.vtt` / `.ass` / `.ssa`
-файлах строки с нужными словами и убирает всё остальное — так можно за
-секунды найти в видео нужные моменты, вместо того чтобы вручную
-пролистывать десятки минут субтитров.
+A Windows app that finds the lines you care about in `.srt` / `.vtt` /
+`.ass` / `.ssa` subtitle files and strips out everything else — find
+the moments you need in a video in seconds, instead of scrubbing
+through minutes of subtitles by hand.
 
-[Скачать](#как-скачать) · [Возможности](#возможности) · [Скриншоты](#скриншоты) · [Как пользоваться](#как-пользоваться) · [Для разработчиков](#для-разработчиков)
+**[🇬🇧 English](#-english)** · **[🇷🇺 Русский](#-русский)**
 
 </div>
 
 ---
 
-## Скриншоты
+## 🇬🇧 English
+
+### Screenshots
+
+<table>
+<tr>
+<td width="50%">
+
+**Dark theme**
+<img src="docs/screenshots/main-dark.jpg" alt="Main window, dark theme" />
+
+</td>
+<td width="50%">
+
+**Light theme**
+<img src="docs/screenshots/main-light.jpg" alt="Main window, light theme" />
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+**Search settings** (dark) — whole words, regex, keep/remove mode, time-range filter
+<img src="docs/screenshots/settings-dark.jpg" alt="Search settings tab, dark theme" />
+
+</td>
+<td width="50%">
+
+**Search settings** (light)
+<img src="docs/screenshots/settings-light.jpg" alt="Search settings tab, light theme" />
+
+</td>
+</tr>
+</table>
+
+---
+
+### Features
+
+| | |
+|---|---|
+| 🔍 **Keyword list search** | Just a list — one word or phrase per line |
+| 🗂 **Word groups** | Several named lists at once (e.g. "names", "profanity") + an "all groups" mode |
+| 🎬 **Per-file group override** | Right-click a file to assign it its own word group, different from the default |
+| 🚫 **Exclusion list** | Words that always get cut, regardless of mode or group |
+| ⏱ **Time-range filter** | Limit processing to a time range of the video (e.g. only the first 5 minutes) |
+| 🔤 **Case-insensitive** | "Word", "WORD" and "word" are the same (case-sensitive mode available) |
+| 🎯 **Whole word / substring** | Toggle it — "cat" won't match "category" unless you want it to |
+| 🧩 **Regex mode** | Every line in the word list becomes a regular expression, for advanced search |
+| ↔️ **Keep / Remove** | Keep only matching lines, or flip it — cut matching lines and keep the rest |
+| 📁 **Batch processing** | Pick a whole folder or drag-and-drop files — processes everything at once |
+| 🔎 **File-list search** | Quickly find a file in a long list; drop the ones you don't need |
+| 👁 **Live preview** | See what will match before you save anything, with matches highlighted |
+| 🎥 **Open video on click** | Double-click a preview line to open the matching video next to it (via VLC — jumps straight to that second) |
+| 🧮 **Dry-run analysis** | See how many matches you'd get without creating any files |
+| 📊 **Progress and summary** | Progress bar plus an overall summary once every file is processed |
+| 📈 **CSV / Excel report** | How many times each word matched — including a per-group report and an Excel chart |
+| 🕘 **Run history** | Recent runs — when, how many files, which mode — with a quick jump to the result |
+| 🧰 **Setting profiles** | Save/load a whole configuration at once: groups, mode, exclusions, regex — per task |
+| 🌗 **Light / dark / system theme** | macOS-style UI with three theme options, including following Windows' theme |
+| ⌨️ **Hotkeys and menu** | Ctrl+O, Ctrl+Shift+O, Ctrl+Enter, Ctrl+S, Ctrl+D, Ctrl+Shift+A — plus a regular top menu |
+| 🖧 **Command-line mode** | Headless batch processing — handy for your own scripts (see "For developers") |
+| 💾 **Everything is remembered** | Word lists, folder, theme and all settings persist between runs |
+| 🔔 **Update check** | A button in the header checks GitHub Releases and can download & install updates itself |
+| 🖥 **Just an .exe** | No Python installation required |
+
+---
+
+### Subtitle formats
+
+`.srt`, `.vtt`, `.ass` and `.ssa` are supported (e.g. subtitles from
+YouTube, Whisper, or made in Aegisub). Timecodes and styling (tags,
+styles) are left untouched — the file opens right at the matched spot
+in your player.
+
+---
+
+### How to download
+
+1. Go to the **[Releases](../../releases)** tab.
+2. Download `SubtitleFilter.exe` from the Assets of the latest release.
+3. That's it — it's a single self-contained file, no installation needed.
+
+> Windows may show a SmartScreen warning because the file isn't signed
+> with a publisher certificate — that's normal for independently built
+> apps. Click **"More info" → "Run anyway"**.
+>
+> If you're publishing a release yourself, it's a good idea to include
+> the file's SHA256 hash in the release notes, so people can verify
+> what they downloaded. You can compute it in PowerShell with
+> `Get-FileHash SubtitleFilter.exe`.
+
+---
+
+### How to use it
+
+1. Launch `SubtitleFilter.exe`.
+2. On the left, pick or create a word group and type in the words you
+   need (one per line).
+3. On the right, pick files or a folder — or just drag `.srt`/`.vtt`
+   files into the window. The list can be filtered with the search box,
+   and unwanted files removed with the "Remove selected" button (or
+   the Delete key).
+4. Click a file in the list — the preview panel shows what will match,
+   highlighted, before you save anything.
+5. Tune the search on the left: whole words, case sensitivity, plain
+   text or regex, and the mode — **"Keep"** matching lines (default) or
+   **"Remove"** them and keep everything else.
+6. Click **"Process"** — the resulting files land in a `filtered`
+   subfolder (or `filtered`/`*.cleaned.*` in Remove mode), with a
+   progress bar and an overall summary.
+7. Optionally, **"Export report (CSV)"** shows how many times each word matched.
+
+Theme (light/dark/system), word lists, the last-used folder and all
+settings can be changed from the header toggle or the "View" menu —
+they're saved automatically to
+`%APPDATA%\SubtitleFilter\settings.json`, so everything is restored on
+the next run (an app update no longer wipes your settings, even if the
+`.exe` moves to a new folder).
+
+#### Hotkeys
+
+| Keys | Action |
+|---|---|
+| `Ctrl+O` | Pick files |
+| `Ctrl+Shift+O` | Pick a folder |
+| `Ctrl+Enter` | Process |
+| `Ctrl+Shift+A` | Dry-run analysis |
+| `Ctrl+S` | Save the word group to a file |
+| `Ctrl+D` | Cycle theme (light → dark → system) |
+| `Delete` | Remove selected files from the list |
+| `Ctrl+Q` | Quit |
+
+#### More features
+
+- **Per-file word group** — right-click a file (or a multi-selection)
+  → "Assign group to selected...". The file shows a `→ group` tag in
+  the list.
+- **Exclusion list** — words listed under the main list on the "Words"
+  tab: lines with these words are always cut, even in "Keep" mode.
+- **Time-range filter** — on the "Search settings" tab: turn on the
+  toggle and set "From"/"To" as `HH:MM:SS` so processing only looks at
+  that segment of the video.
+- **Profiles** — "Edit → Profiles" menu: saves the current groups,
+  mode, exclusions and search settings under one name, so you can
+  switch quickly between tasks (e.g. "profanity" vs "character names").
+- **History** — "Log → Processing history" menu: a list of past runs
+  with date, file count and result; double-click opens the result
+  folder.
+- **Report across all groups** — "File → Report for all groups..."
+  menu: counts matches for every word group at once, not just the
+  active one.
+
+---
+
+### Requirements
+
+- Windows 10 / 11
+- Nothing else to install (drag-and-drop works out of the box if the
+  `.exe` was built with `tkinterdnd2` — see below)
+
+---
+
+### For developers
+
+<details>
+<summary><strong>Expand</strong> — running from source, CLI mode, building the .exe, releases</summary>
+
+Source code — `subtitle_filter_app.py` (Python, tkinter).
+
+#### Run without building
+
+```bash
+pip install tkinterdnd2 openpyxl
+python subtitle_filter_app.py
+```
+
+`tkinterdnd2` is only needed for drag-and-drop, `openpyxl` only for the
+Excel report export. The app works fully without either: drag-and-drop
+falls back to file-picker buttons, and the report export falls back to
+CSV instead of Excel.
+
+#### Command-line mode (headless)
+
+```bash
+python subtitle_filter_app.py --cli --keywords keywords.txt --input subs_folder --mode remove --whole-word --out out_folder
+```
+
+Full list of flags: `python subtitle_filter_app.py --cli --help`.
+Handy for batch processing from your own scripts or on a schedule —
+the built `.exe` supports `--cli` the exact same way.
+
+#### Building the .exe
+
+```bash
+pip install pyinstaller tkinterdnd2 openpyxl
+pyinstaller --onefile --windowed --name "SubtitleFilter" --icon "app_icon.ico" --collect-all tkinterdnd2 subtitle_filter_app.py
+```
+
+The `--collect-all tkinterdnd2` flag is required if you want
+drag-and-drop to work in the built `.exe` too — that library ships
+native binaries PyInstaller doesn't pick up on its own.
+
+Output: `dist/SubtitleFilter.exe`.
+
+#### Automated release builds (GitHub Actions)
+
+Pushing a `vX.Y.Z` tag triggers the `.github/workflows/release.yml`
+workflow, which builds `SubtitleFilter.exe` on `windows-latest` and
+publishes a release with that file attached — no more building and
+uploading the exe by hand, just create and push a tag:
+
+```bash
+git tag v1.2.0
+git push origin v1.2.0
+```
+
+#### Versioning
+
+The current version lives in `APP_VERSION` near the top of
+`subtitle_filter_app.py`. When cutting a new version, bump that
+constant and create a matching GitHub release tag (e.g. `v1.2.0`) so
+the in-app "Check for updates" button works correctly (and the build
+above fires automatically).
+
+#### Project layout
+
+```
+subtitle-filter/
+├── subtitle_filter_app.py       # app source code
+├── app_icon.ico                  # icon used when building the .exe
+├── docs/                          # logo and screenshots for the README
+├── README.md                      # this file
+├── keywords-example.txt           # example word list
+├── LICENSE                         # MIT license
+├── .github/workflows/release.yml  # auto-builds & releases the .exe on tag vX.Y.Z
+└── .gitignore
+```
+
+</details>
+
+---
+
+## 🇷🇺 Русский
+
+### Скриншоты
 
 <table>
 <tr>
@@ -58,7 +303,7 @@
 
 ---
 
-## Возможности
+### Возможности
 
 | | |
 |---|---|
@@ -89,7 +334,7 @@
 
 ---
 
-## Формат субтитров
+### Формат субтитров
 
 Поддерживаются `.srt`, `.vtt`, `.ass` и `.ssa` (например, субтитры из
 YouTube, Whisper или сделанные в Aegisub). Таймкоды и оформление (стили,
@@ -97,7 +342,7 @@ YouTube, Whisper или сделанные в Aegisub). Таймкоды и оф
 
 ---
 
-## Как скачать
+### Как скачать
 
 1. Перейди во вкладку **[Releases](../../releases)**.
 2. Скачай `SubtitleFilter.exe` из раздела Assets последнего релиза.
@@ -113,7 +358,7 @@ YouTube, Whisper или сделанные в Aegisub). Таймкоды и оф
 
 ---
 
-## Как пользоваться
+### Как пользоваться
 
 1. Запусти `SubtitleFilter.exe`.
 2. Слева выбери или создай группу слов, впиши нужные слова (по одному на строку).
@@ -136,7 +381,7 @@ YouTube, Whisper или сделанные в Aegisub). Таймкоды и оф
 при следующем запуске всё будет как было (обновление программы больше не
 затирает настройки, даже если exe лежит в новой папке).
 
-### Горячие клавиши
+#### Горячие клавиши
 
 | Клавиши | Действие |
 |---|---|
@@ -149,7 +394,7 @@ YouTube, Whisper или сделанные в Aegisub). Таймкоды и оф
 | `Delete` | Удалить выбранные файлы из списка |
 | `Ctrl+Q` | Выход |
 
-### Дополнительные возможности
+#### Дополнительные возможности
 
 - **Своя группа слов для конкретного файла** — правый клик по файлу (или
   нескольким выбранным) → «Назначить группу для выбранных...». В списке
@@ -170,7 +415,7 @@ YouTube, Whisper или сделанные в Aegisub). Таймкоды и оф
 
 ---
 
-## Требования
+### Требования
 
 - Windows 10 / 11
 - Ничего дополнительно устанавливать не нужно (drag-and-drop работает из коробки,
@@ -178,14 +423,14 @@ YouTube, Whisper или сделанные в Aegisub). Таймкоды и оф
 
 ---
 
-## Для разработчиков
+### Для разработчиков
 
 <details>
 <summary><strong>Развернуть</strong> — запуск из исходников, CLI-режим, сборка .exe, релизы</summary>
 
 Исходный код — `subtitle_filter_app.py` (Python, tkinter).
 
-### Запуск без сборки
+#### Запуск без сборки
 
 ```bash
 pip install tkinterdnd2 openpyxl
@@ -197,7 +442,7 @@ python subtitle_filter_app.py
 работает: перетаскивание заменяется кнопками выбора файлов, а вместо
 Excel остаётся экспорт в CSV.
 
-### Режим командной строки (без интерфейса)
+#### Режим командной строки (без интерфейса)
 
 ```bash
 python subtitle_filter_app.py --cli --keywords keywords.txt --input subs_folder --mode remove --whole-word --out out_folder
@@ -207,7 +452,7 @@ python subtitle_filter_app.py --cli --keywords keywords.txt --input subs_folder 
 Удобно для пакетной обработки из своих скриптов или по расписанию —
 собранный `.exe` тоже поддерживает `--cli` точно так же.
 
-### Сборка .exe
+#### Сборка .exe
 
 ```bash
 pip install pyinstaller tkinterdnd2 openpyxl
@@ -220,7 +465,7 @@ pyinstaller --onefile --windowed --name "SubtitleFilter" --icon "app_icon.ico" -
 
 Готовый файл: `dist/SubtitleFilter.exe`.
 
-### Автоматическая сборка релиза (GitHub Actions)
+#### Автоматическая сборка релиза (GitHub Actions)
 
 При пуше тега вида `vX.Y.Z` workflow `.github/workflows/release.yml`
 сам собирает `SubtitleFilter.exe` на `windows-latest` и публикует релиз
@@ -232,7 +477,7 @@ git tag v1.2.0
 git push origin v1.2.0
 ```
 
-### Версионирование
+#### Версионирование
 
 Текущая версия зашита в `APP_VERSION` в начале `subtitle_filter_app.py`.
 При выпуске новой версии — обнови эту константу и создай тег релиза на
@@ -240,7 +485,7 @@ GitHub в том же формате (например `v1.2.0`), тогда к�
 обновления» в программе будет работать корректно (а сборка запустится
 автоматически, см. выше).
 
-### Структура проекта
+#### Структура проекта
 
 ```
 subtitle-filter/
@@ -260,10 +505,14 @@ subtitle-filter/
 
 <div align="center">
 
-### 🙂 Понравилось?
+### 🙂 Like it? / Понравилось?
 
-Нажми **⭐ Star** в правом верхнем углу страницы репозитория — это займёт секунду,
-ничего не стоит, но помогает проекту быть заметнее и мотивирует делать его лучше.
+Hit **⭐ Star** in the top-right corner of the repo page — takes a
+second, costs nothing, and helps the project get noticed.
+
+Нажми **⭐ Star** в правом верхнем углу страницы репозитория — это займёт
+секунду, ничего не стоит, но помогает проекту быть заметнее и мотивирует
+делать его лучше.
 
 [![Star this repo](https://img.shields.io/badge/⭐-Star%20this%20repo-f5c518?style=for-the-badge&labelColor=1e1e1e)](../../stargazers)
 
