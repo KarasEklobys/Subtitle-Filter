@@ -690,7 +690,7 @@ def run_cli(argv):
         matcher = build_matcher(keywords, args.whole_word, args.case_sensitive, args.regex)
         exclude_matcher = build_matcher(exclude_words, args.whole_word, args.case_sensitive, args.regex)
     except re.error as e:
-        print(f"{t('Неверное регулярное выражение: ')}{e}")
+        print((t('Неверное регулярное выражение: ') + f"{e}"))
         return 1
 
     time_enabled = bool(args.time_start or args.time_end)
@@ -710,14 +710,14 @@ def run_cli(argv):
     for path in files:
         try:
             out_path, kept, total, _ = filter_subtitle_file(path, decide, out_dir, suffix)
-            print(f"{os.path.basename(out_path)} — {kept}{t(' из ')}{total}{t(' строк')}")
+            print((f"{os.path.basename(out_path)}" + ' — ' + f"{kept}" + t(' из ') + f"{total}" + t(' строк')))
             total_kept += kept
             total_all += total
         except Exception as e:
-            print(f"{t('ОШИБКА ')}{os.path.basename(path)}: {e}")
+            print((t('ОШИБКА ') + f"{os.path.basename(path)}" + ': ' + f"{e}"))
             exit_code = 1
 
-    print(f"{t('\nИтого: ')}{total_kept}{t(' из ')}{total_all}{t(' строк в ')}{len(files)}{t(' файл(ах). Результаты в: ')}{out_dir}")
+    print((t('\nИтого: ') + f"{total_kept}" + t(' из ') + f"{total_all}" + t(' строк в ') + f"{len(files)}" + t(' файл(ах). Результаты в: ') + f"{out_dir}"))
     return exit_code
 
 
@@ -1236,7 +1236,7 @@ class App(BaseTk):
         win.transient(self)
         win.grab_set()
         ttk.Label(win, text=APP_TITLE, style="Panel.TLabel", font=("Segoe UI", 14, "bold")).pack(pady=(20, 4))
-        ttk.Label(win, text=f"{t('Версия ')}{APP_VERSION}", style="Panel.TLabel").pack()
+        ttk.Label(win, text=(t('Версия ') + f"{APP_VERSION}"), style="Panel.TLabel").pack()
         ttk.Label(win, text=t("Оставляет в субтитрах только то, что важно."),
                   style="Dim.TLabel", wraplength=300, justify="center").pack(pady=(10, 10))
         link = tk.Label(win, text=t("Открыть репозиторий на GitHub"), fg=self.theme["accent"],
@@ -1283,7 +1283,7 @@ class App(BaseTk):
         dnd_note = t("перетаскивание файлов включено") if DND_AVAILABLE else t("перетаскивание выключено (нет tkinterdnd2)")
         ttk.Label(
             header,
-            text=f"{t('Оставляет в .srt/.vtt/.ass/.ssa только строки с нужными словами (или убирает их). ')}{dnd_note}.",
+            text=(t('Оставляет в .srt/.vtt/.ass/.ssa только строки с нужными словами (или убирает их). ') + f"{dnd_note}" + '.'),
             foreground=THEMES["light"]["text_dim"],
         ).pack(anchor="w", pady=(2, 0))
 
@@ -1331,7 +1331,7 @@ class App(BaseTk):
 
         ttk.Label(
             left,
-            text=f"«{ALL_GROUPS_LABEL}{t('» объединяет слова из всех групп сразу.')}",
+            text=('«' + f"{ALL_GROUPS_LABEL}" + t('» объединяет слова из всех групп сразу.')),
             style="Dim.TLabel", wraplength=280, justify="left",
         ).pack(anchor="w", padx=4, pady=(6, 6))
 
@@ -1570,7 +1570,7 @@ class App(BaseTk):
         if len(self.settings["groups"]) <= 1:
             messagebox.showwarning(APP_TITLE, t("Нельзя удалить единственную группу."))
             return
-        if not messagebox.askyesno(APP_TITLE, f"{t('Удалить группу «')}{current}»?"):
+        if not messagebox.askyesno(APP_TITLE, (t('Удалить группу «') + f"{current}" + '»?')):
             return
         del self.settings["groups"][current]
         self.settings["file_groups"] = {
@@ -1638,7 +1638,7 @@ class App(BaseTk):
     def _on_kw_change(self, event=None, save=True):
         self.kw_text.edit_modified(False)
         words = self._get_keywords()
-        self.kw_count_lbl.config(text=f"{len(words)}{t(' слов(а)')}")
+        self.kw_count_lbl.config(text=(f"{len(words)}" + t(' слов(а)')))
         current = self.group_combo.get()
         if save and current != ALL_GROUPS_LABEL:
             self.settings["groups"][current] = words
@@ -1791,7 +1791,7 @@ class App(BaseTk):
             return
         self.settings.setdefault("profiles", {})[name] = self._profile_snapshot()
         save_settings(self.settings)
-        self.show_toast(f"{t('Профиль «')}{name}{t('» сохранён.')}")
+        self.show_toast((t('Профиль «') + f"{name}" + t('» сохранён.')))
 
     def load_profile(self, name):
         profile = self.settings.get("profiles", {}).get(name)
@@ -1813,10 +1813,10 @@ class App(BaseTk):
             w.redraw()
         self._sync_control_states()
         save_settings(self.settings)
-        self.show_toast(f"{t('Профиль «')}{name}{t('» загружен.')}")
+        self.show_toast((t('Профиль «') + f"{name}" + t('» загружен.')))
 
     def delete_profile(self, name):
-        if messagebox.askyesno(APP_TITLE, f"{t('Удалить профиль «')}{name}»?"):
+        if messagebox.askyesno(APP_TITLE, (t('Удалить профиль «') + f"{name}" + '»?')):
             self.settings.get("profiles", {}).pop(name, None)
             save_settings(self.settings)
 
@@ -1930,10 +1930,10 @@ class App(BaseTk):
         if not self.files:
             text = t("Файлов не выбрано (можно перетащить сюда)")
         elif query and not self._visible_indices:
-            text = f"{t('Ничего не найдено по «')}{query}» ({len(self.files)}{t(' файл(ов) всего)')}"
+            text = (t('Ничего не найдено по «') + f"{query}" + '» (' + f"{len(self.files)}" + t(' файл(ов) всего)'))
         else:
             shown = len(self._visible_indices)
-            text = f"{shown}{t(' из ')}{len(self.files)}{t(' файл(ов)')}" if query else f"{len(self.files)}{t(' файл(ов) выбрано')}"
+            text = (f"{shown}" + t(' из ') + f"{len(self.files)}" + t(' файл(ов)')) if query else (f"{len(self.files)}" + t(' файл(ов) выбрано'))
         self.file_count_lbl.config(text=text)
 
     def _on_file_select(self, event=None):
@@ -1965,12 +1965,12 @@ class App(BaseTk):
         try:
             decide, matcher, exclude_matcher, invert = self._make_decider(keywords)
         except re.error as e:
-            self._set_preview(f"{t('Неверное регулярное выражение: ')}{e}")
+            self._set_preview((t('Неверное регулярное выражение: ') + f"{e}"))
             return
         try:
             _, entries = peek_subtitle_blocks(path)
         except Exception as e:
-            self._set_preview(f"{t('Не удалось прочитать файл: ')}{e}")
+            self._set_preview((t('Не удалось прочитать файл: ') + f"{e}"))
             return
 
         kept = [e for e in entries if decide(e["text"], e["start_sec"])]
@@ -2024,7 +2024,7 @@ class App(BaseTk):
             self.preview_text.insert("end", clean[pos:] + "\n\n")
 
         if len(kept) > 200:
-            self.preview_text.insert("end", f"{t('... и ещё ')}{len(kept) - 200}{t(' строк (показаны первые 200)')}")
+            self.preview_text.insert("end", (t('... и ещё ') + f"{len(kept) - 200}" + t(' строк (показаны первые 200)')))
         self.preview_text.config(state="disabled")
 
     def _set_preview(self, text):
@@ -2084,7 +2084,7 @@ class App(BaseTk):
                 os.startfile(video)
                 self.show_toast(t("VLC не найден — видео открыто с начала (перемотка недоступна)."))
         except Exception as e:
-            self.show_toast(f"{t('Не удалось открыть видео: ')}{e}", kind="error")
+            self.show_toast((t('Не удалось открыть видео: ') + f"{e}"), kind="error")
 
     # ---------- лог ----------
 
@@ -2123,7 +2123,7 @@ class App(BaseTk):
                 ]
                 _, entries = peek_subtitle_blocks(path)
             except (re.error, Exception) as e:
-                self._append_log(f"✕ {os.path.basename(path)}{t(' — ошибка: ')}{e}")
+                self._append_log(('✕ ' + f"{os.path.basename(path)}" + t(' — ошибка: ') + f"{e}"))
                 errors += 1
                 continue
             kept = [e for e in entries if decide(e["text"], e["start_sec"])]
@@ -2134,9 +2134,9 @@ class App(BaseTk):
                     totals[kw] = totals.get(kw, 0) + c
             total_kept += len(kept)
             total_all += len(entries)
-            self._append_log(f"• {os.path.basename(path)}{t(' — совпало бы ')}{len(kept)}{t(' из ')}{len(entries)}{t(' строк')}")
+            self._append_log(('• ' + f"{os.path.basename(path)}" + t(' — совпало бы ') + f"{len(kept)}" + t(' из ') + f"{len(entries)}" + t(' строк')))
 
-        self._append_log(f"{t('\nИтого без сохранения: ')}{total_kept}{t(' из ')}{total_all}{t(' строк.')}")
+        self._append_log((t('\nИтого без сохранения: ') + f"{total_kept}" + t(' из ') + f"{total_all}" + t(' строк.')))
         if totals:
             top = sorted(totals.items(), key=lambda kv: kv[1], reverse=True)[:8]
             self._append_log(t("Чаще всего встречалось: ") + ", ".join(f"«{k}» — {v}" for k, v in top))
@@ -2187,23 +2187,23 @@ class App(BaseTk):
                             self.last_report.append({"file": os.path.basename(path), "keyword": kw, "count": count})
                             report_totals[kw] = report_totals.get(kw, 0) + count
                     name = os.path.basename(out_path)
-                    line = f"✓ {name} — {kept}{t(' из ')}{total}{t(' строк')}" if kept else \
-                           f"⚠ {name}{t(' — 0 из ')}{total}{t(' строк (совпадений нет)')}"
+                    line = ('✓ ' + f"{name}" + ' — ' + f"{kept}" + t(' из ') + f"{total}" + t(' строк')) if kept else \
+                           ('⚠ ' + f"{name}" + t(' — 0 из ') + f"{total}" + t(' строк (совпадений нет)'))
                     total_kept += kept
                     total_blocks += total
                 except Exception as e:
-                    line = f"✕ {os.path.basename(path)}{t(' — ошибка: ')}{e}"
+                    line = ('✕ ' + f"{os.path.basename(path)}" + t(' — ошибка: ') + f"{e}")
                     failures += 1
 
                 self.after(0, lambda i=idx, ln=line: (self._append_log(ln), self.progress.config(value=i)))
 
             def finish():
-                self._append_log(f"{t('\nИтого: ')}{total_kept}{t(' из ')}{total_blocks}{t(' строк в ')}{total_files - failures}{t(' файл(ах).')}")
+                self._append_log((t('\nИтого: ') + f"{total_kept}" + t(' из ') + f"{total_blocks}" + t(' строк в ') + f"{total_files - failures}" + t(' файл(ах).')))
                 if report_totals:
                     top = sorted(report_totals.items(), key=lambda kv: kv[1], reverse=True)[:5]
                     top_str = ", ".join(f"«{k}» — {v}" for k, v in top)
-                    self._append_log(f"{t('Чаще всего встречалось: ')}{top_str}")
-                self._append_log(f"{t('\nГотово. Результаты в папке:\n')}{out_dir}")
+                    self._append_log((t('Чаще всего встречалось: ') + f"{top_str}"))
+                self._append_log((t('\nГотово. Результаты в папке:\n') + f"{out_dir}"))
                 self.last_out_dir = out_dir
                 self.open_folder_btn.config(state="normal")
                 has_report = bool(self.last_report)
@@ -2212,7 +2212,7 @@ class App(BaseTk):
                 self.copy_btn.config(state="normal")
                 self.process_btn.set_enabled(True)
                 self._add_history_entry(total_files - failures, total_kept, total_blocks, out_dir)
-                self.show_toast(f"{t('Готово: ')}{total_kept}{t(' из ')}{total_blocks}{t(' строк в ')}{total_files - failures}{t(' файл(ах).')}")
+                self.show_toast((t('Готово: ') + f"{total_kept}" + t(' из ') + f"{total_blocks}" + t(' строк в ') + f"{total_files - failures}" + t(' файл(ах).')))
 
             self.after(0, finish)
 
@@ -2260,7 +2260,7 @@ class App(BaseTk):
         box = tk.Listbox(win, bg=self.theme["panel2"], fg=self.theme["text"], relief="flat", font=FONT_MONO)
         box.pack(fill="both", expand=True, padx=12, pady=12)
         for h in history:
-            box.insert("end", f"{h['ts']}  ·  {h['files']}{t(' файл(ов)  ·  ')}{h['mode']} ({h['group']})  ·  {h['kept']}/{h['total']}{t(' строк')}")
+            box.insert("end", (f"{h['ts']}" + '  ·  ' + f"{h['files']}" + t(' файл(ов)  ·  ') + f"{h['mode']}" + ' (' + f"{h['group']}" + ')  ·  ' + f"{h['kept']}" + '/' + f"{h['total']}" + t(' строк')))
 
         def open_selected(event=None):
             sel = box.curselection()
@@ -2293,7 +2293,7 @@ class App(BaseTk):
             writer.writerow([t("Файл"), t("Слово"), t("Найдено раз")])
             for row in self.last_report:
                 writer.writerow([row["file"], row["keyword"], row["count"]])
-        self.show_toast(f"{t('Отчёт сохранён: ')}{os.path.basename(path)}")
+        self.show_toast((t('Отчёт сохранён: ') + f"{os.path.basename(path)}"))
 
     def export_xlsx(self):
         if not OPENPYXL_AVAILABLE:
@@ -2309,7 +2309,7 @@ class App(BaseTk):
         if not path:
             return
         self._write_xlsx_report(path, self.last_report, t("Отчёт"))
-        self.show_toast(f"{t('Отчёт сохранён: ')}{os.path.basename(path)}")
+        self.show_toast((t('Отчёт сохранён: ') + f"{os.path.basename(path)}"))
 
     def export_all_groups(self):
         if not OPENPYXL_AVAILABLE:
@@ -2366,7 +2366,7 @@ class App(BaseTk):
                 writer.writerow([t("Группа"), t("Файл"), t("Слово"), t("Найдено раз")])
                 for row in rows:
                     writer.writerow([row["group"], row["file"], row["keyword"], row["count"]])
-        self.show_toast(f"{t('Отчёт по всем группам сохранён: ')}{os.path.basename(path)}")
+        self.show_toast((t('Отчёт по всем группам сохранён: ') + f"{os.path.basename(path)}"))
 
     def _write_xlsx_report(self, path, rows, sheet_title, with_group=False):
         wb = Workbook()
@@ -2428,7 +2428,7 @@ class App(BaseTk):
                         break
             except Exception as e:
                 self.after(0, lambda: messagebox.showinfo(
-                    APP_TITLE, f"{t('Не удалось проверить обновления.\n(')}{e})"
+                    APP_TITLE, (t('Не удалось проверить обновления.\n(') + f"{e}" + ')')
                 ))
                 return
 
@@ -2447,8 +2447,8 @@ class App(BaseTk):
         if can_auto:
             answer = messagebox.askyesnocancel(
                 APP_TITLE,
-                f"{t('Доступна новая версия: ')}{latest}{t(' (у тебя ')}{APP_VERSION}"
-                + t(').\n\nДа — скачать и установить автоматически.\nНет — открыть страницу релиза в браузере.'),
+                (t('Доступна новая версия: ') + f"{latest}" + t(' (у тебя ') + f"{APP_VERSION}"
+                 + t(').\n\nДа — скачать и установить автоматически.\nНет — открыть страницу релиза в браузере.')),
             )
             if answer is None:
                 return
@@ -2458,7 +2458,7 @@ class App(BaseTk):
             webbrowser.open(html_url)
         else:
             if messagebox.askyesno(
-                APP_TITLE, f"{t('Доступна новая версия: ')}{latest}{t(' (у тебя ')}{APP_VERSION}{t(').\nОткрыть страницу релиза?')}"
+                APP_TITLE, (t('Доступна новая версия: ') + f"{latest}" + t(' (у тебя ') + f"{APP_VERSION}" + t(').\nОткрыть страницу релиза?'))
             ):
                 webbrowser.open(html_url)
 
@@ -2496,7 +2496,7 @@ class App(BaseTk):
 
                 self.after(0, launch_and_exit)
             except Exception as e:
-                self.after(0, lambda: messagebox.showerror(APP_TITLE, f"{t('Не удалось установить обновление:\n')}{e}"))
+                self.after(0, lambda: messagebox.showerror(APP_TITLE, (t('Не удалось установить обновление:\n') + f"{e}")))
 
         threading.Thread(target=worker, daemon=True).start()
 
