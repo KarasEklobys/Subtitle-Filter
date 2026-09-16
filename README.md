@@ -6,7 +6,7 @@
 
 **Keeps only the subtitle lines that matter. / Оставляет в субтитрах только то, что важно.**
 
-[![Version](https://img.shields.io/badge/version-1.2.0-0071e3?style=for-the-badge&labelColor=1e1e1e)](../../releases/latest)
+[![Version](https://img.shields.io/badge/version-1.3.0-0071e3?style=for-the-badge&labelColor=1e1e1e)](../../releases/latest)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-0078D6?style=for-the-badge&logo=windows&logoColor=white&labelColor=1e1e1e)](#requirements)
 [![Made with Python](https://img.shields.io/badge/made%20with-Python%20%2B%20Tkinter-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=1e1e1e)](#for-developers)
 [![Just an .exe](https://img.shields.io/badge/install-just%20an%20.exe-success?style=for-the-badge&labelColor=1e1e1e)](#how-to-download)
@@ -88,6 +88,7 @@ through minutes of subtitles by hand.
 | 💾 **Everything is remembered** | Word lists, folder, theme and all settings persist between runs |
 | 🔔 **Update check** | A button in the header checks GitHub Releases and can download & install updates itself |
 | 🖥 **Just an .exe** | No Python installation required |
+| 🌐 **English / Русский** | Full interface toggle (View menu) — restart to apply |
 
 ---
 
@@ -236,8 +237,8 @@ publishes a release with that file attached — no more building and
 uploading the exe by hand, just create and push a tag:
 
 ```bash
-git tag v1.2.0
-git push origin v1.2.0
+git tag v1.3.0
+git push origin v1.3.0
 ```
 
 #### Versioning
@@ -331,6 +332,7 @@ subtitle-filter/
 | 💾 **Всё запоминается** | Список слов, папка, тема и все настройки сохраняются между запусками |
 | 🔔 **Проверка обновлений** | Кнопка в шапке — сверяется с GitHub Releases, умеет скачать и установить новую версию сама |
 | 🖥 **Просто .exe** | Не требует установки Python |
+| 🌐 **English / Русский** | Полное переключение интерфейса (меню «Вид») — применяется после перезапуска |
 
 ---
 
@@ -473,8 +475,8 @@ pyinstaller --onefile --windowed --name "SubtitleFilter" --icon "app_icon.ico" -
 достаточно создать и запушить тег:
 
 ```bash
-git tag v1.2.0
-git push origin v1.2.0
+git tag v1.3.0
+git push origin v1.3.0
 ```
 
 #### Версионирование

@@ -27,7 +27,7 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 
 APP_TITLE = "Subtitle Filter"
-APP_VERSION = "1.2.0"
+APP_VERSION = "1.3.0"
 
 # Замени на свои владельца/репозиторий, если хочешь, чтобы кнопка
 # "Проверить обновления" смотрела на твой GitHub. Если оставить как есть
@@ -42,6 +42,207 @@ NO_GROUP_OVERRIDE = "(использовать текущую)"
 
 MODE_KEEP = "keep"
 MODE_REMOVE = "remove"
+
+# ---------- i18n ----------
+# Interface language: "ru" (default) or "en". Loaded from settings at
+# startup; changing it takes effect after restarting the app.
+LANG = "ru"
+
+TRANSLATIONS = {
+    "🔗 Все группы": "🔗 All groups",
+    "Основной": "Main",
+    "(использовать текущую)": "(use current)",
+    "папа": "example",
+    "беги": "run",
+    "зажигательн": "spoil",
+    "кредит": "credit",
+    "Пакетная обработка субтитров без графического интерфейса.": "Batch-process subtitles without the GUI.",
+    "Файл со словами (по одному на строку)": "Word list file (one word per line)",
+    "Файл со словами-исключениями (необязательно)": "Exclusion word list file (optional)",
+    "Файлы и/или папки с .srt/.vtt/.ass/.ssa": "Files and/or folders with .srt/.vtt/.ass/.ssa",
+    "keep — оставить совпадения (по умолчанию), remove — убрать их": "keep — keep matching lines (default), remove — remove them",
+    "Искать только целые слова": "Match whole words only",
+    "Учитывать регистр букв": "Case-sensitive",
+    "Слова — регулярные выражения": "Treat words as regular expressions",
+    "Нижняя граница времени HH:MM:SS": "Start time HH:MM:SS",
+    "Верхняя граница времени HH:MM:SS": "End time HH:MM:SS",
+    "Папка для результатов (по умолчанию — filtered рядом с первым файлом)": "Output folder (default: filtered next to the first file)",
+    "Не найдено ни одного .srt/.vtt/.ass/.ssa файла по указанным путям.": "No .srt/.vtt/.ass/.ssa files found at the given paths.",
+    "Список слов пуст.": "The word list is empty.",
+    "Выбрать файлы...": "Select files...",
+    "Выбрать папку...": "Select folder...",
+    "Экспорт отчёта (CSV)...": "Export report (CSV)...",
+    "Экспорт отчёта (Excel)...": "Export report (Excel)...",
+    "Отчёт по всем группам...": "Report for all groups...",
+    "Скопировать сводку в буфер": "Copy summary to clipboard",
+    "Выход": "Exit",
+    "Файл": "File",
+    "Новая группа...": "New group...",
+    "Переименовать группу...": "Rename group...",
+    "Удалить группу": "Delete group",
+    "Сохранить группу...": "Save group...",
+    "Загрузить в группу...": "Load into group...",
+    "Профили": "Profiles",
+    "Правка": "Edit",
+    "Светлая": "Light",
+    "Тёмная": "Dark",
+    "Как в системе": "System",
+    "Переключить тему": "Toggle theme",
+    "Вид": "View",
+    "Анализ без сохранения": "Dry-run analysis",
+    "История обработок...": "Processing history...",
+    "Журнал": "Log",
+    "Проверить обновления": "Check for updates",
+    "О программе": "About",
+    "Справка": "Help",
+    "Сохранить текущие настройки как профиль...": "Save current settings as profile...",
+    "Загрузить": "Load",
+    "Удалить": "Delete",
+    "Оставляет в субтитрах только то, что важно.": "Keeps only the subtitle lines that matter.",
+    "Открыть репозиторий на GitHub": "Open repository on GitHub",
+    "Закрыть": "Close",
+    "перетаскивание файлов включено": "drag-and-drop enabled",
+    "перетаскивание выключено (нет tkinterdnd2)": "drag-and-drop disabled (tkinterdnd2 missing)",
+    "Слова": "Words",
+    "Настройки поиска": "Search settings",
+    "ГРУППЫ СЛОВ": "WORD GROUPS",
+    "+ группа": "+ group",
+    "Переименовать": "Rename",
+    "СЛОВА В ГРУППЕ (по одному в строке)": "WORDS IN GROUP (one per line)",
+    "0 слов": "0 words",
+    "Загрузить...": "Load...",
+    "Сохранить...": "Save...",
+    "ИСКЛЮЧИТЬ СЛОВА (всегда вырезаются из результата)": "EXCLUDE WORDS (always cut from the result)",
+    "НАСТРОЙКИ ПОИСКА": "SEARCH SETTINGS",
+    "Только целые слова": "Whole words only",
+    "Регулярные выражения (regex)": "Regular expressions (regex)",
+    "Режим:": "Mode:",
+    "Оставить": "Keep",
+    "Убрать": "Remove",
+    "ФИЛЬТР ПО ВРЕМЕНИ": "TIME FILTER",
+    "Ограничить диапазон времени": "Limit to a time range",
+    "От": "From",
+    "До": "To",
+    "Формат: ЧЧ:ММ:СС, например 00:05:00": "Format: HH:MM:SS, e.g. 00:05:00",
+    "ФАЙЛЫ СУБТИТРОВ (.srt / .vtt / .ass / .ssa)": "SUBTITLE FILES (.srt / .vtt / .ass / .ssa)",
+    "Выбрать папку": "Select folder",
+    "Удалить выбранное": "Remove selected",
+    "Очистить всё": "Clear all",
+    "Файлов не выбрано (можно перетащить сюда)": "No files selected (you can drag & drop here)",
+    "Обработать": "Process",
+    "Открыть папку с результатом": "Open result folder",
+    "Скопировать сводку": "Copy summary",
+    "РЕЗУЛЬТАТ ОБРАБОТКИ": "PROCESSING RESULT",
+    "ПРЕДПРОСМОТР (двойной клик по строке — открыть видео рядом на этом месте)": "PREVIEW (double-click a line to open the matching video at that spot)",
+    "Новая группа": "New group",
+    "Название новой группы слов:": "New word group name:",
+    "Группа с таким названием уже есть.": "A group with that name already exists.",
+    "«Все группы» — это не отдельная группа, переименовать нельзя.": "“All groups” isn't a real group — it can't be renamed.",
+    "Переименовать группу": "Rename group",
+    "Новое название:": "New name:",
+    "Нельзя удалить единственную группу.": "Can't delete the only group.",
+    "ОК": "OK",
+    "Отмена": "Cancel",
+    "«Убрать» — из субтитров удаляются строки с совпадениями, всё остальное остаётся.": "“Remove” — lines that match get cut, everything else stays.",
+    "«Оставить» — в субтитрах остаются только строки с совпадениями (обычный режим).": "“Keep” — only matching lines stay (the default mode).",
+    "Учитывает персональную группу файла (если назначена через контекстное меню).": "Takes into account a file's own group, if one was assigned via the right-click menu.",
+    "Выбери конкретную группу, чтобы загрузить в неё список.": "Pick a specific group to load the list into.",
+    "Загрузить список слов": "Load word list",
+    "Текстовый файл": "Text file",
+    "Сохранить список слов": "Save word list",
+    "Новый профиль": "New profile",
+    "Название профиля:": "Profile name:",
+    "Выбери файлы субтитров": "Select subtitle files",
+    "Субтитры": "Subtitles",
+    "Выбери папку с субтитрами": "Select a folder with subtitles",
+    "Назначить группу для выбранных...": "Assign group to selected...",
+    "Сбросить группу для выбранных": "Reset group for selected",
+    "Удалить из списка": "Remove from list",
+    "Группа для файлов": "Group for files",
+    "Использовать группу:": "Use group:",
+    "Выбери файл в списке слева.": "Select a file from the list on the left.",
+    "Совпадений не найдено.": "No matches found.",
+    "Видео с таким же именем рядом с субтитрами не найдено.": "No video with a matching name found next to the subtitles.",
+    "VLC не найден — видео открыто с начала (перемотка недоступна).": "VLC wasn't found — the video opened from the start (can't seek).",
+    "Сначала выбери файлы субтитров.": "Select subtitle files first.",
+    "Анализ...\n": "Analyzing...\n",
+    "Чаще всего встречалось: ": "Most frequent: ",
+    "Анализ завершён — файлы не изменены.": "Analysis complete — no files were changed.",
+    "Сначала добавь хотя бы одно слово в список.": "Add at least one word to the list first.",
+    "Обработка...\n": "Processing...\n",
+    "для этого файла список слов пуст": "the word list is empty for this file",
+    "История обработок": "Processing history",
+    "Пока пусто — здесь появится история после первой обработки.": "Nothing here yet — history will show up after the first run.",
+    "Папка результата больше не существует.": "The result folder doesn't exist anymore.",
+    "Двойной клик — открыть папку с результатом этого запуска.": "Double-click to open the result folder for that run.",
+    "Сначала обработай файлы.": "Process files first.",
+    "Сохранить отчёт": "Save report",
+    "Слово": "Word",
+    "Найдено раз": "Matches",
+    "Для экспорта в Excel нужна библиотека openpyxl:\npip install openpyxl": "Exporting to Excel needs the openpyxl library:\npip install openpyxl",
+    "Отчёт": "Report",
+    "Формат отчёта": "Report format",
+    "В каком формате сохранить:": "Save as:",
+    "Совпадений не найдено ни в одной группе.": "No matches found in any group.",
+    "Сохранить отчёт по всем группам": "Save report for all groups",
+    "Все группы": "All groups",
+    "Группа": "Group",
+    "По словам": "By word",
+    "Всего": "Total",
+    "Найдено раз по словам": "Matches by word",
+    "Раз": "Matches",
+    "Сводка скопирована в буфер обмена.": "Summary copied to clipboard.",
+    "У тебя установлена последняя версия.": "You're already on the latest version.",
+    "Скачиваю обновление...": "Downloading update...",
+    "Неверное регулярное выражение: ": "Invalid regular expression: ",
+    " из ": " of ",
+    " строк": " lines",
+    "ОШИБКА ": "ERROR ",
+    "\nИтого: ": "\nTotal: ",
+    " строк в ": " lines in ",
+    " файл(ах). Результаты в: ": " file(s). Results in: ",
+    "Версия ": "Version ",
+    "Оставляет в .srt/.vtt/.ass/.ssa только строки с нужными словами (или убирает их). ": "Keeps only the lines you need in .srt/.vtt/.ass/.ssa files (or removes them). ",
+    "» объединяет слова из всех групп сразу.": "” combines words from every group at once.",
+    "Удалить группу «": "Delete group “",
+    " слов(а)": " word(s)",
+    "Профиль «": "Profile “",
+    "» сохранён.": "” saved.",
+    "» загружен.": "” loaded.",
+    "Удалить профиль «": "Delete profile “",
+    "Ничего не найдено по «": "Nothing found for “",
+    " файл(ов) всего)": " file(s) total)",
+    " файл(ов)": " file(s)",
+    " файл(ов) выбрано": " file(s) selected",
+    "Не удалось прочитать файл: ": "Couldn't read the file: ",
+    "... и ещё ": "... and ",
+    " строк (показаны первые 200)": " more lines (first 200 shown)",
+    "Не удалось открыть видео: ": "Couldn't open the video: ",
+    " — ошибка: ": " — error: ",
+    " — совпало бы ": " — would match ",
+    "\nИтого без сохранения: ": "\nTotal (dry run): ",
+    " строк.": " lines.",
+    " — 0 из ": " — 0 of ",
+    " строк (совпадений нет)": " lines (no matches)",
+    " файл(ах).": " file(s).",
+    "\nГотово. Результаты в папке:\n": "\nDone. Results in:\n",
+    "Готово: ": "Done: ",
+    " файл(ов)  ·  ": " file(s)  ·  ",
+    "Отчёт сохранён: ": "Report saved: ",
+    "Отчёт по всем группам сохранён: ": "Report for all groups saved: ",
+    "Не удалось проверить обновления.\n(": "Couldn't check for updates.\n(",
+    "Доступна новая версия: ": "A new version is available: ",
+    " (у тебя ": " (you have ",
+    ").\n\nДа — скачать и установить автоматически.\nНет — открыть страницу релиза в браузере.": ").\n\nYes — download and install automatically.\nNo — open the release page in your browser.",
+    ").\nОткрыть страницу релиза?": ").\nOpen the release page?",
+    "Не удалось установить обновление:\n": "Couldn't install the update:\n"
+}
+
+def t(s):
+    """Translate a UI string to the current LANG (English only; Russian is the source language)."""
+    if LANG == "en":
+        return TRANSLATIONS.get(s, s)
+    return s
 
 SUPPORTED_EXTS = (".srt", ".vtt", ".ass", ".ssa")
 
@@ -130,6 +331,7 @@ DEFAULT_SETTINGS = {
     "regex_mode": False,
     "mode": MODE_KEEP,
     "theme": "system",
+    "lang": "ru",
     "last_folder": "",
     "active_group": DEFAULT_GROUP,
     "groups": {DEFAULT_GROUP: ["папа", "беги", "зажигательн", "кредит"]},
@@ -449,22 +651,24 @@ def _gather_cli_files(inputs):
 
 
 def run_cli(argv):
+    global LANG
+    LANG = load_settings().get("lang", "ru")
     parser = argparse.ArgumentParser(
         prog="SubtitleFilter --cli",
-        description="Пакетная обработка субтитров без графического интерфейса.",
+        description=t("Пакетная обработка субтитров без графического интерфейса."),
     )
     parser.add_argument("--cli", action="store_true", help=argparse.SUPPRESS)
-    parser.add_argument("--keywords", required=True, help="Файл со словами (по одному на строку)")
-    parser.add_argument("--exclude", help="Файл со словами-исключениями (необязательно)")
-    parser.add_argument("--input", nargs="+", required=True, help="Файлы и/или папки с .srt/.vtt/.ass/.ssa")
+    parser.add_argument("--keywords", required=True, help=t("Файл со словами (по одному на строку)"))
+    parser.add_argument("--exclude", help=t("Файл со словами-исключениями (необязательно)"))
+    parser.add_argument("--input", nargs="+", required=True, help=t("Файлы и/или папки с .srt/.vtt/.ass/.ssa"))
     parser.add_argument("--mode", choices=[MODE_KEEP, MODE_REMOVE], default=MODE_KEEP,
-                         help="keep — оставить совпадения (по умолчанию), remove — убрать их")
-    parser.add_argument("--whole-word", action="store_true", help="Искать только целые слова")
-    parser.add_argument("--case-sensitive", action="store_true", help="Учитывать регистр букв")
-    parser.add_argument("--regex", action="store_true", help="Слова — регулярные выражения")
-    parser.add_argument("--time-start", help="Нижняя граница времени HH:MM:SS")
-    parser.add_argument("--time-end", help="Верхняя граница времени HH:MM:SS")
-    parser.add_argument("--out", help="Папка для результатов (по умолчанию — filtered рядом с первым файлом)")
+                         help=t("keep — оставить совпадения (по умолчанию), remove — убрать их"))
+    parser.add_argument("--whole-word", action="store_true", help=t("Искать только целые слова"))
+    parser.add_argument("--case-sensitive", action="store_true", help=t("Учитывать регистр букв"))
+    parser.add_argument("--regex", action="store_true", help=t("Слова — регулярные выражения"))
+    parser.add_argument("--time-start", help=t("Нижняя граница времени HH:MM:SS"))
+    parser.add_argument("--time-end", help=t("Верхняя граница времени HH:MM:SS"))
+    parser.add_argument("--out", help=t("Папка для результатов (по умолчанию — filtered рядом с первым файлом)"))
     args = parser.parse_args(argv)
 
     with open(args.keywords, "r", encoding="utf-8-sig", errors="replace") as f:
@@ -476,17 +680,17 @@ def run_cli(argv):
 
     files = _gather_cli_files(args.input)
     if not files:
-        print("Не найдено ни одного .srt/.vtt/.ass/.ssa файла по указанным путям.")
+        print(t("Не найдено ни одного .srt/.vtt/.ass/.ssa файла по указанным путям."))
         return 1
     if not keywords:
-        print("Список слов пуст.")
+        print(t("Список слов пуст."))
         return 1
 
     try:
         matcher = build_matcher(keywords, args.whole_word, args.case_sensitive, args.regex)
         exclude_matcher = build_matcher(exclude_words, args.whole_word, args.case_sensitive, args.regex)
     except re.error as e:
-        print(f"Неверное регулярное выражение: {e}")
+        print(f"{t('Неверное регулярное выражение: ')}{e}")
         return 1
 
     time_enabled = bool(args.time_start or args.time_end)
@@ -506,14 +710,14 @@ def run_cli(argv):
     for path in files:
         try:
             out_path, kept, total, _ = filter_subtitle_file(path, decide, out_dir, suffix)
-            print(f"{os.path.basename(out_path)} — {kept} из {total} строк")
+            print(f"{os.path.basename(out_path)} — {kept}{t(' из ')}{total}{t(' строк')}")
             total_kept += kept
             total_all += total
         except Exception as e:
-            print(f"ОШИБКА {os.path.basename(path)}: {e}")
+            print(f"{t('ОШИБКА ')}{os.path.basename(path)}: {e}")
             exit_code = 1
 
-    print(f"\nИтого: {total_kept} из {total_all} строк в {len(files)} файл(ах). Результаты в: {out_dir}")
+    print(f"{t('\nИтого: ')}{total_kept}{t(' из ')}{total_all}{t(' строк в ')}{len(files)}{t(' файл(ах). Результаты в: ')}{out_dir}")
     return exit_code
 
 
@@ -746,6 +950,8 @@ class App(BaseTk):
     def __init__(self):
         super().__init__()
         self.settings = load_settings()
+        global LANG
+        LANG = self.settings.get("lang", "ru")
         self.theme = THEMES.get(self._effective_theme_name(), THEMES["light"])
 
         self.title(f"{APP_TITLE} v{APP_VERSION}")
@@ -927,46 +1133,48 @@ class App(BaseTk):
         self.menubar = menubar
 
         file_menu = tk.Menu(menubar, tearoff=False)
-        file_menu.add_command(label="Выбрать файлы...", accelerator="Ctrl+O", command=self.pick_files)
-        file_menu.add_command(label="Выбрать папку...", accelerator="Ctrl+Shift+O", command=self.pick_folder)
+        file_menu.add_command(label=t("Выбрать файлы..."), accelerator="Ctrl+O", command=self.pick_files)
+        file_menu.add_command(label=t("Выбрать папку..."), accelerator="Ctrl+Shift+O", command=self.pick_folder)
         file_menu.add_separator()
-        file_menu.add_command(label="Экспорт отчёта (CSV)...", command=self.export_csv)
-        file_menu.add_command(label="Экспорт отчёта (Excel)...", command=self.export_xlsx)
-        file_menu.add_command(label="Отчёт по всем группам...", command=self.export_all_groups)
-        file_menu.add_command(label="Скопировать сводку в буфер", command=self.copy_summary_to_clipboard)
+        file_menu.add_command(label=t("Экспорт отчёта (CSV)..."), command=self.export_csv)
+        file_menu.add_command(label=t("Экспорт отчёта (Excel)..."), command=self.export_xlsx)
+        file_menu.add_command(label=t("Отчёт по всем группам..."), command=self.export_all_groups)
+        file_menu.add_command(label=t("Скопировать сводку в буфер"), command=self.copy_summary_to_clipboard)
         file_menu.add_separator()
-        file_menu.add_command(label="Выход", accelerator="Ctrl+Q", command=self._on_close)
-        menubar.add_cascade(label="Файл", menu=file_menu)
+        file_menu.add_command(label=t("Выход"), accelerator="Ctrl+Q", command=self._on_close)
+        menubar.add_cascade(label=t("Файл"), menu=file_menu)
 
         edit_menu = tk.Menu(menubar, tearoff=False)
-        edit_menu.add_command(label="Новая группа...", command=self.add_group)
-        edit_menu.add_command(label="Переименовать группу...", command=self.rename_group)
-        edit_menu.add_command(label="Удалить группу", command=self.delete_group)
+        edit_menu.add_command(label=t("Новая группа..."), command=self.add_group)
+        edit_menu.add_command(label=t("Переименовать группу..."), command=self.rename_group)
+        edit_menu.add_command(label=t("Удалить группу"), command=self.delete_group)
         edit_menu.add_separator()
-        edit_menu.add_command(label="Сохранить группу...", accelerator="Ctrl+S", command=self.save_keywords)
-        edit_menu.add_command(label="Загрузить в группу...", command=self.load_keywords)
+        edit_menu.add_command(label=t("Сохранить группу..."), accelerator="Ctrl+S", command=self.save_keywords)
+        edit_menu.add_command(label=t("Загрузить в группу..."), command=self.load_keywords)
         edit_menu.add_separator()
         self.profiles_menu = tk.Menu(edit_menu, tearoff=False, postcommand=self._build_profiles_menu)
-        edit_menu.add_cascade(label="Профили", menu=self.profiles_menu)
-        menubar.add_cascade(label="Правка", menu=edit_menu)
+        edit_menu.add_cascade(label=t("Профили"), menu=self.profiles_menu)
+        menubar.add_cascade(label=t("Правка"), menu=edit_menu)
 
         view_menu = tk.Menu(menubar, tearoff=False)
-        view_menu.add_command(label="Светлая", command=lambda: self._set_theme("light"))
-        view_menu.add_command(label="Тёмная", command=lambda: self._set_theme("dark"))
-        view_menu.add_command(label="Как в системе", command=lambda: self._set_theme("system"))
+        view_menu.add_command(label=t("Светлая"), command=lambda: self._set_theme("light"))
+        view_menu.add_command(label=t("Тёмная"), command=lambda: self._set_theme("dark"))
+        view_menu.add_command(label=t("Как в системе"), command=lambda: self._set_theme("system"))
         view_menu.add_separator()
-        view_menu.add_command(label="Переключить тему", accelerator="Ctrl+D", command=self.toggle_theme)
-        menubar.add_cascade(label="Вид", menu=view_menu)
+        view_menu.add_command(label=t("Переключить тему"), accelerator="Ctrl+D", command=self.toggle_theme)
+        view_menu.add_separator()
+        view_menu.add_command(label=("English" if LANG == "ru" else "Русский"), command=self.toggle_lang)
+        menubar.add_cascade(label=t("Вид"), menu=view_menu)
 
         log_menu = tk.Menu(menubar, tearoff=False)
-        log_menu.add_command(label="Анализ без сохранения", accelerator="Ctrl+Shift+A", command=self.analyze_only)
-        log_menu.add_command(label="История обработок...", command=self.show_history)
-        menubar.add_cascade(label="Журнал", menu=log_menu)
+        log_menu.add_command(label=t("Анализ без сохранения"), accelerator="Ctrl+Shift+A", command=self.analyze_only)
+        log_menu.add_command(label=t("История обработок..."), command=self.show_history)
+        menubar.add_cascade(label=t("Журнал"), menu=log_menu)
 
         help_menu = tk.Menu(menubar, tearoff=False)
-        help_menu.add_command(label="Проверить обновления", command=self.check_updates)
-        help_menu.add_command(label="О программе", command=self.show_about)
-        menubar.add_cascade(label="Справка", menu=help_menu)
+        help_menu.add_command(label=t("Проверить обновления"), command=self.check_updates)
+        help_menu.add_command(label=t("О программе"), command=self.show_about)
+        menubar.add_cascade(label=t("Справка"), menu=help_menu)
 
         self.config(menu=menubar)
 
@@ -975,6 +1183,15 @@ class App(BaseTk):
         if hasattr(self, "theme_control"):
             self.theme_control.redraw()
         self._on_theme_choice()
+
+    def toggle_lang(self):
+        new_lang = "en" if self.settings.get("lang", "ru") == "ru" else "ru"
+        self.settings["lang"] = new_lang
+        save_settings(self.settings)
+        msg = ("Restart Subtitle Filter to apply the language change."
+               if new_lang == "en" else
+               "Перезапусти Subtitle Filter, чтобы применить смену языка.")
+        messagebox.showinfo(APP_TITLE, msg)
 
     def toggle_theme(self):
         order = ["light", "dark", "system"]
@@ -985,14 +1202,14 @@ class App(BaseTk):
     def _build_profiles_menu(self):
         menu = self.profiles_menu
         menu.delete(0, "end")
-        menu.add_command(label="Сохранить текущие настройки как профиль...", command=self.save_profile)
+        menu.add_command(label=t("Сохранить текущие настройки как профиль..."), command=self.save_profile)
         profiles = self.settings.get("profiles", {})
         if profiles:
             menu.add_separator()
             for name in sorted(profiles.keys()):
                 sub = tk.Menu(menu, tearoff=False)
-                sub.add_command(label="Загрузить", command=lambda n=name: self.load_profile(n))
-                sub.add_command(label="Удалить", command=lambda n=name: self.delete_profile(n))
+                sub.add_command(label=t("Загрузить"), command=lambda n=name: self.load_profile(n))
+                sub.add_command(label=t("Удалить"), command=lambda n=name: self.delete_profile(n))
                 menu.add_cascade(label=name, menu=sub)
         self._theme_menu(menu)
 
@@ -1013,21 +1230,21 @@ class App(BaseTk):
 
     def show_about(self):
         win = tk.Toplevel(self)
-        win.title("О программе")
+        win.title(t("О программе"))
         win.configure(bg=self.theme["panel"])
         win.geometry("360x220")
         win.transient(self)
         win.grab_set()
         ttk.Label(win, text=APP_TITLE, style="Panel.TLabel", font=("Segoe UI", 14, "bold")).pack(pady=(20, 4))
-        ttk.Label(win, text=f"Версия {APP_VERSION}", style="Panel.TLabel").pack()
-        ttk.Label(win, text="Оставляет в субтитрах только то, что важно.",
+        ttk.Label(win, text=f"{t('Версия ')}{APP_VERSION}", style="Panel.TLabel").pack()
+        ttk.Label(win, text=t("Оставляет в субтитрах только то, что важно."),
                   style="Dim.TLabel", wraplength=300, justify="center").pack(pady=(10, 10))
-        link = tk.Label(win, text="Открыть репозиторий на GitHub", fg=self.theme["accent"],
+        link = tk.Label(win, text=t("Открыть репозиторий на GitHub"), fg=self.theme["accent"],
                          bg=self.theme["panel"], cursor="hand2", font=FONT_UI)
         link.pack()
         link.bind("<Button-1>", lambda e: webbrowser.open(
             f"https://github.com/{GITHUB_OWNER}/{GITHUB_REPO}"))
-        ttk.Button(win, text="Закрыть", command=win.destroy).pack(pady=16)
+        ttk.Button(win, text=t("Закрыть"), command=win.destroy).pack(pady=16)
 
     def _on_close(self):
         try:
@@ -1056,17 +1273,17 @@ class App(BaseTk):
         top_row = ttk.Frame(header, style="TFrame")
         top_row.pack(fill="x")
         ttk.Label(top_row, text=APP_TITLE, font=("Segoe UI", 16, "bold")).pack(side="left")
-        ttk.Button(top_row, text="Проверить обновления", command=self.check_updates).pack(side="right")
+        ttk.Button(top_row, text=t("Проверить обновления"), command=self.check_updates).pack(side="right")
         self.theme_control = SegmentedControl(
             top_row, self,
             [("light", "☀️"), ("dark", "🌙"), ("system", "💻")],
             self.theme_var, command=self._on_theme_choice, width=110, height=28,
         )
         self.theme_control.pack(side="right", padx=(0, 10))
-        dnd_note = "перетаскивание файлов включено" if DND_AVAILABLE else "перетаскивание выключено (нет tkinterdnd2)"
+        dnd_note = t("перетаскивание файлов включено") if DND_AVAILABLE else t("перетаскивание выключено (нет tkinterdnd2)")
         ttk.Label(
             header,
-            text=f"Оставляет в .srt/.vtt/.ass/.ssa только строки с нужными словами (или убирает их). {dnd_note}.",
+            text=f"{t('Оставляет в .srt/.vtt/.ass/.ssa только строки с нужными словами (или убирает их). ')}{dnd_note}.",
             foreground=THEMES["light"]["text_dim"],
         ).pack(anchor="w", pady=(2, 0))
 
@@ -1091,14 +1308,14 @@ class App(BaseTk):
 
         words_tab = ttk.Frame(notebook, style="Panel.TFrame")
         settings_tab = ttk.Frame(notebook, style="Panel.TFrame")
-        notebook.add(words_tab, text="Слова")
-        notebook.add(settings_tab, text="Настройки поиска")
+        notebook.add(words_tab, text=t("Слова"))
+        notebook.add(settings_tab, text=t("Настройки поиска"))
 
         self._build_words_tab(words_tab)
         self._build_settings_tab(settings_tab)
 
     def _build_words_tab(self, left):
-        ttk.Label(left, text="ГРУППЫ СЛОВ", style="Header.TLabel").pack(anchor="w", padx=4, pady=(10, 4))
+        ttk.Label(left, text=t("ГРУППЫ СЛОВ"), style="Header.TLabel").pack(anchor="w", padx=4, pady=(10, 4))
 
         group_row = ttk.Frame(left, style="Panel.TFrame")
         group_row.pack(fill="x", padx=4)
@@ -1108,17 +1325,17 @@ class App(BaseTk):
 
         group_btns = ttk.Frame(left, style="Panel.TFrame")
         group_btns.pack(fill="x", padx=4, pady=(6, 0))
-        ttk.Button(group_btns, text="+ группа", command=self.add_group).pack(side="left", padx=(0, 4))
-        ttk.Button(group_btns, text="Переименовать", command=self.rename_group).pack(side="left", padx=(0, 4))
-        ttk.Button(group_btns, text="Удалить", command=self.delete_group).pack(side="left")
+        ttk.Button(group_btns, text=t("+ группа"), command=self.add_group).pack(side="left", padx=(0, 4))
+        ttk.Button(group_btns, text=t("Переименовать"), command=self.rename_group).pack(side="left", padx=(0, 4))
+        ttk.Button(group_btns, text=t("Удалить"), command=self.delete_group).pack(side="left")
 
         ttk.Label(
             left,
-            text=f"«{ALL_GROUPS_LABEL}» объединяет слова из всех групп сразу.",
+            text=f"«{ALL_GROUPS_LABEL}{t('» объединяет слова из всех групп сразу.')}",
             style="Dim.TLabel", wraplength=280, justify="left",
         ).pack(anchor="w", padx=4, pady=(6, 6))
 
-        ttk.Label(left, text="СЛОВА В ГРУППЕ (по одному в строке)", style="Header.TLabel").pack(
+        ttk.Label(left, text=t("СЛОВА В ГРУППЕ (по одному в строке)"), style="Header.TLabel").pack(
             anchor="w", padx=4, pady=(4, 4)
         )
         self.kw_text = tk.Text(left, relief="flat", font=FONT_MONO_KW, wrap="word", height=7, undo=True, maxundo=100)
@@ -1126,15 +1343,15 @@ class App(BaseTk):
         self.kw_text.pack(fill="both", expand=True, padx=4)
         self.kw_text.bind("<<Modified>>", self._on_kw_change)
 
-        self.kw_count_lbl = ttk.Label(left, text="0 слов", style="Dim.TLabel")
+        self.kw_count_lbl = ttk.Label(left, text=t("0 слов"), style="Dim.TLabel")
         self.kw_count_lbl.pack(anchor="w", padx=4, pady=(4, 8))
 
         btn_row = ttk.Frame(left, style="Panel.TFrame")
         btn_row.pack(fill="x", padx=4, pady=(0, 10))
-        ttk.Button(btn_row, text="Загрузить...", command=self.load_keywords).pack(side="left", padx=(0, 6))
-        ttk.Button(btn_row, text="Сохранить...", command=self.save_keywords).pack(side="left")
+        ttk.Button(btn_row, text=t("Загрузить..."), command=self.load_keywords).pack(side="left", padx=(0, 6))
+        ttk.Button(btn_row, text=t("Сохранить..."), command=self.save_keywords).pack(side="left")
 
-        ttk.Label(left, text="ИСКЛЮЧИТЬ СЛОВА (всегда вырезаются из результата)", style="Header.TLabel").pack(
+        ttk.Label(left, text=t("ИСКЛЮЧИТЬ СЛОВА (всегда вырезаются из результата)"), style="Header.TLabel").pack(
             anchor="w", padx=4, pady=(2, 4)
         )
         self.exclude_text = tk.Text(left, relief="flat", font=FONT_MONO_KW, wrap="word", height=4, undo=True, maxundo=100)
@@ -1143,17 +1360,17 @@ class App(BaseTk):
         self.exclude_text.bind("<<Modified>>", self._on_exclude_change)
 
     def _build_settings_tab(self, left):
-        ttk.Label(left, text="НАСТРОЙКИ ПОИСКА", style="Header.TLabel").pack(anchor="w", padx=4, pady=(10, 6))
+        ttk.Label(left, text=t("НАСТРОЙКИ ПОИСКА"), style="Header.TLabel").pack(anchor="w", padx=4, pady=(10, 6))
 
-        self._build_toggle_row(left, "Только целые слова", self.whole_word_var, self._on_whole_word_change)
-        self._build_toggle_row(left, "Учитывать регистр букв", self.case_sensitive_var, self._on_search_opt_change)
-        self._build_toggle_row(left, "Регулярные выражения (regex)", self.regex_mode_var, self._on_regex_toggle)
+        self._build_toggle_row(left, t("Только целые слова"), self.whole_word_var, self._on_whole_word_change)
+        self._build_toggle_row(left, t("Учитывать регистр букв"), self.case_sensitive_var, self._on_search_opt_change)
+        self._build_toggle_row(left, t("Регулярные выражения (regex)"), self.regex_mode_var, self._on_regex_toggle)
 
         mode_row = ttk.Frame(left, style="Panel.TFrame")
         mode_row.pack(fill="x", padx=4, pady=(10, 4))
-        ttk.Label(mode_row, text="Режим:", style="Panel.TLabel").pack(side="left", padx=(0, 8))
+        ttk.Label(mode_row, text=t("Режим:"), style="Panel.TLabel").pack(side="left", padx=(0, 8))
         self.mode_control = SegmentedControl(
-            mode_row, self, [(MODE_KEEP, "Оставить"), (MODE_REMOVE, "Убрать")],
+            mode_row, self, [(MODE_KEEP, t("Оставить")), (MODE_REMOVE, t("Убрать"))],
             self.mode_var, command=self._on_mode_change, width=180, height=26,
         )
         self.mode_control.pack(side="left")
@@ -1161,21 +1378,21 @@ class App(BaseTk):
         self.mode_hint_lbl = ttk.Label(left, text="", style="Dim.TLabel", wraplength=280, justify="left")
         self.mode_hint_lbl.pack(anchor="w", padx=4, pady=(6, 12))
 
-        ttk.Label(left, text="ФИЛЬТР ПО ВРЕМЕНИ", style="Header.TLabel").pack(anchor="w", padx=4, pady=(0, 6))
-        self._build_toggle_row(left, "Ограничить диапазон времени", self.time_filter_var, self._on_time_filter_toggle)
+        ttk.Label(left, text=t("ФИЛЬТР ПО ВРЕМЕНИ"), style="Header.TLabel").pack(anchor="w", padx=4, pady=(0, 6))
+        self._build_toggle_row(left, t("Ограничить диапазон времени"), self.time_filter_var, self._on_time_filter_toggle)
 
         time_row = ttk.Frame(left, style="Panel.TFrame")
         time_row.pack(fill="x", padx=4, pady=(4, 4))
-        ttk.Label(time_row, text="От", style="Panel.TLabel").pack(side="left")
+        ttk.Label(time_row, text=t("От"), style="Panel.TLabel").pack(side="left")
         self.time_start_entry = ttk.Entry(time_row, textvariable=self.time_start_var, width=9)
         self.time_start_entry.pack(side="left", padx=(4, 10))
-        ttk.Label(time_row, text="До", style="Panel.TLabel").pack(side="left")
+        ttk.Label(time_row, text=t("До"), style="Panel.TLabel").pack(side="left")
         self.time_end_entry = ttk.Entry(time_row, textvariable=self.time_end_var, width=9)
         self.time_end_entry.pack(side="left", padx=(4, 0))
         self.time_start_var.trace_add("write", lambda *a: self._on_time_bounds_change())
         self.time_end_var.trace_add("write", lambda *a: self._on_time_bounds_change())
 
-        ttk.Label(left, text="Формат: ЧЧ:ММ:СС, например 00:05:00", style="Dim.TLabel").pack(
+        ttk.Label(left, text=t("Формат: ЧЧ:ММ:СС, например 00:05:00"), style="Dim.TLabel").pack(
             anchor="w", padx=4, pady=(2, 12)
         )
 
@@ -1195,16 +1412,16 @@ class App(BaseTk):
         right.rowconfigure(3, weight=1)
         right.columnconfigure(0, weight=1)
 
-        ttk.Label(right, text="ФАЙЛЫ СУБТИТРОВ (.srt / .vtt / .ass / .ssa)", style="Header.TLabel").grid(
+        ttk.Label(right, text=t("ФАЙЛЫ СУБТИТРОВ (.srt / .vtt / .ass / .ssa)"), style="Header.TLabel").grid(
             row=0, column=0, sticky="w", padx=4, pady=(10, 6)
         )
 
         file_btns = ttk.Frame(right, style="Panel.TFrame")
         file_btns.grid(row=1, column=0, sticky="ew", padx=4)
-        ttk.Button(file_btns, text="Выбрать файлы...", command=self.pick_files).pack(side="left", padx=(0, 6))
-        ttk.Button(file_btns, text="Выбрать папку", command=self.pick_folder).pack(side="left", padx=(0, 6))
-        ttk.Button(file_btns, text="Удалить выбранное", command=self.remove_selected_files).pack(side="left", padx=(0, 6))
-        ttk.Button(file_btns, text="Очистить всё", command=self.clear_files).pack(side="left")
+        ttk.Button(file_btns, text=t("Выбрать файлы..."), command=self.pick_files).pack(side="left", padx=(0, 6))
+        ttk.Button(file_btns, text=t("Выбрать папку"), command=self.pick_folder).pack(side="left", padx=(0, 6))
+        ttk.Button(file_btns, text=t("Удалить выбранное"), command=self.remove_selected_files).pack(side="left", padx=(0, 6))
+        ttk.Button(file_btns, text=t("Очистить всё"), command=self.clear_files).pack(side="left")
 
         search_row = ttk.Frame(right, style="Panel.TFrame")
         search_row.grid(row=2, column=0, sticky="ew", padx=4, pady=(8, 0))
@@ -1228,16 +1445,16 @@ class App(BaseTk):
         scrollbar.grid(row=0, column=1, sticky="ns")
         self.file_listbox.config(yscrollcommand=scrollbar.set)
 
-        self.file_count_lbl = ttk.Label(right, text="Файлов не выбрано (можно перетащить сюда)", style="Dim.TLabel")
+        self.file_count_lbl = ttk.Label(right, text=t("Файлов не выбрано (можно перетащить сюда)"), style="Dim.TLabel")
         self.file_count_lbl.grid(row=4, column=0, sticky="w", padx=4)
 
         action_row = ttk.Frame(right, style="Panel.TFrame")
         action_row.grid(row=5, column=0, sticky="ew", padx=4, pady=(8, 6))
-        self.process_btn = PillButton(action_row, self, "Обработать", self.process_files)
+        self.process_btn = PillButton(action_row, self, t("Обработать"), self.process_files)
         self.process_btn.pack(side="left")
-        ttk.Button(action_row, text="Анализ без сохранения", command=self.analyze_only).pack(side="left", padx=(10, 0))
+        ttk.Button(action_row, text=t("Анализ без сохранения"), command=self.analyze_only).pack(side="left", padx=(10, 0))
         self.open_folder_btn = ttk.Button(
-            action_row, text="Открыть папку с результатом", command=self.open_output_folder, state="disabled"
+            action_row, text=t("Открыть папку с результатом"), command=self.open_output_folder, state="disabled"
         )
         self.open_folder_btn.pack(side="left", padx=(8, 0))
 
@@ -1247,7 +1464,7 @@ class App(BaseTk):
         self.export_csv_btn.pack(side="left")
         self.export_xlsx_btn = ttk.Button(action_row2, text="Excel", command=self.export_xlsx, state="disabled")
         self.export_xlsx_btn.pack(side="left", padx=(6, 0))
-        self.copy_btn = ttk.Button(action_row2, text="Скопировать сводку", command=self.copy_summary_to_clipboard, state="disabled")
+        self.copy_btn = ttk.Button(action_row2, text=t("Скопировать сводку"), command=self.copy_summary_to_clipboard, state="disabled")
         self.copy_btn.pack(side="left", padx=(6, 0))
 
         progress_row = ttk.Frame(right, style="Panel.TFrame")
@@ -1265,7 +1482,7 @@ class App(BaseTk):
 
         log_panel, log_frame = self._mk_panel(bottom, radius=12)
         log_panel.grid(row=0, column=0, sticky="nsew", padx=(0, 6))
-        ttk.Label(log_frame, text="РЕЗУЛЬТАТ ОБРАБОТКИ", style="Header.TLabel").pack(anchor="w", padx=2, pady=(8, 4))
+        ttk.Label(log_frame, text=t("РЕЗУЛЬТАТ ОБРАБОТКИ"), style="Header.TLabel").pack(anchor="w", padx=2, pady=(8, 4))
         self.log_text = tk.Text(log_frame, relief="flat", font=FONT_MONO, height=9, state="disabled")
         self._raw_texts.append((self.log_text, "text"))
         self.log_text.pack(fill="both", expand=True, padx=2, pady=(0, 8))
@@ -1274,7 +1491,7 @@ class App(BaseTk):
         preview_panel.grid(row=0, column=1, sticky="nsew", padx=(6, 0))
         ttk.Label(
             preview_frame,
-            text="ПРЕДПРОСМОТР (двойной клик по строке — открыть видео рядом на этом месте)",
+            text=t("ПРЕДПРОСМОТР (двойной клик по строке — открыть видео рядом на этом месте)"),
             style="Header.TLabel",
         ).pack(anchor="w", padx=2, pady=(8, 4))
         self.preview_text = tk.Text(preview_frame, relief="flat", font=FONT_MONO, height=9, state="disabled", cursor="hand2")
@@ -1316,11 +1533,11 @@ class App(BaseTk):
         return seen
 
     def add_group(self):
-        name = self._ask_text("Новая группа", "Название новой группы слов:")
+        name = self._ask_text(t("Новая группа"), t("Название новой группы слов:"))
         if not name:
             return
         if name in self.settings["groups"] or name == ALL_GROUPS_LABEL:
-            messagebox.showwarning(APP_TITLE, "Группа с таким названием уже есть.")
+            messagebox.showwarning(APP_TITLE, t("Группа с таким названием уже есть."))
             return
         self.settings["groups"][name] = []
         self._load_group_names()
@@ -1330,13 +1547,13 @@ class App(BaseTk):
     def rename_group(self):
         current = self.group_combo.get()
         if current == ALL_GROUPS_LABEL:
-            messagebox.showinfo(APP_TITLE, "«Все группы» — это не отдельная группа, переименовать нельзя.")
+            messagebox.showinfo(APP_TITLE, t("«Все группы» — это не отдельная группа, переименовать нельзя."))
             return
-        new_name = self._ask_text("Переименовать группу", "Новое название:", initial=current)
+        new_name = self._ask_text(t("Переименовать группу"), t("Новое название:"), initial=current)
         if not new_name or new_name == current:
             return
         if new_name in self.settings["groups"]:
-            messagebox.showwarning(APP_TITLE, "Группа с таким названием уже есть.")
+            messagebox.showwarning(APP_TITLE, t("Группа с таким названием уже есть."))
             return
         self.settings["groups"][new_name] = self.settings["groups"].pop(current)
         for path, g in list(self.settings.get("file_groups", {}).items()):
@@ -1351,9 +1568,9 @@ class App(BaseTk):
         if current == ALL_GROUPS_LABEL:
             return
         if len(self.settings["groups"]) <= 1:
-            messagebox.showwarning(APP_TITLE, "Нельзя удалить единственную группу.")
+            messagebox.showwarning(APP_TITLE, t("Нельзя удалить единственную группу."))
             return
-        if not messagebox.askyesno(APP_TITLE, f"Удалить группу «{current}»?"):
+        if not messagebox.askyesno(APP_TITLE, f"{t('Удалить группу «')}{current}»?"):
             return
         del self.settings["groups"][current]
         self.settings["file_groups"] = {
@@ -1386,8 +1603,8 @@ class App(BaseTk):
         entry.bind("<Return>", confirm)
         btns = ttk.Frame(win, style="Panel.TFrame")
         btns.pack(pady=12)
-        ttk.Button(btns, text="ОК", command=confirm).pack(side="left", padx=4)
-        ttk.Button(btns, text="Отмена", command=win.destroy).pack(side="left", padx=4)
+        ttk.Button(btns, text=t("ОК"), command=confirm).pack(side="left", padx=4)
+        ttk.Button(btns, text=t("Отмена"), command=win.destroy).pack(side="left", padx=4)
         self.wait_window(win)
         return result["value"]
 
@@ -1411,8 +1628,8 @@ class App(BaseTk):
 
         btns = ttk.Frame(win, style="Panel.TFrame")
         btns.pack(pady=14)
-        ttk.Button(btns, text="ОК", command=confirm).pack(side="left", padx=4)
-        ttk.Button(btns, text="Отмена", command=win.destroy).pack(side="left", padx=4)
+        ttk.Button(btns, text=t("ОК"), command=confirm).pack(side="left", padx=4)
+        ttk.Button(btns, text=t("Отмена"), command=win.destroy).pack(side="left", padx=4)
         self.wait_window(win)
         return result["value"]
 
@@ -1421,7 +1638,7 @@ class App(BaseTk):
     def _on_kw_change(self, event=None, save=True):
         self.kw_text.edit_modified(False)
         words = self._get_keywords()
-        self.kw_count_lbl.config(text=f"{len(words)} слов(а)")
+        self.kw_count_lbl.config(text=f"{len(words)}{t(' слов(а)')}")
         current = self.group_combo.get()
         if save and current != ALL_GROUPS_LABEL:
             self.settings["groups"][current] = words
@@ -1485,11 +1702,11 @@ class App(BaseTk):
                 w.set_enabled(enabled)
         if self.mode_var.get() == MODE_REMOVE:
             self.mode_hint_lbl.config(
-                text="«Убрать» — из субтитров удаляются строки с совпадениями, всё остальное остаётся."
+                text=t("«Убрать» — из субтитров удаляются строки с совпадениями, всё остальное остаётся.")
             )
         else:
             self.mode_hint_lbl.config(
-                text="«Оставить» — в субтитрах остаются только строки с совпадениями (обычный режим)."
+                text=t("«Оставить» — в субтитрах остаются только строки с совпадениями (обычный режим).")
             )
 
     def _get_keywords(self):
@@ -1502,7 +1719,7 @@ class App(BaseTk):
         return self._get_keywords()
 
     def _keywords_for_file(self, path):
-        """Учитывает персональную группу файла (если назначена через контекстное меню)."""
+        t("""Учитывает персональную группу файла (если назначена через контекстное меню).""")
         override = self.settings.get("file_groups", {}).get(path)
         if override and override in self.settings["groups"]:
             return self.settings["groups"][override]
@@ -1531,9 +1748,9 @@ class App(BaseTk):
 
     def load_keywords(self):
         if self.group_combo.get() == ALL_GROUPS_LABEL:
-            messagebox.showinfo(APP_TITLE, "Выбери конкретную группу, чтобы загрузить в неё список.")
+            messagebox.showinfo(APP_TITLE, t("Выбери конкретную группу, чтобы загрузить в неё список."))
             return
-        path = filedialog.askopenfilename(title="Загрузить список слов", filetypes=[("Текстовый файл", "*.txt")])
+        path = filedialog.askopenfilename(title=t("Загрузить список слов"), filetypes=[(t("Текстовый файл"), "*.txt")])
         if not path:
             return
         with open(path, "r", encoding="utf-8-sig", errors="replace") as f:
@@ -1544,8 +1761,8 @@ class App(BaseTk):
 
     def save_keywords(self):
         path = filedialog.asksaveasfilename(
-            title="Сохранить список слов", defaultextension=".txt",
-            filetypes=[("Текстовый файл", "*.txt")], initialfile="keywords.txt",
+            title=t("Сохранить список слов"), defaultextension=".txt",
+            filetypes=[(t("Текстовый файл"), "*.txt")], initialfile="keywords.txt",
         )
         if not path:
             return
@@ -1569,12 +1786,12 @@ class App(BaseTk):
         }
 
     def save_profile(self):
-        name = self._ask_text("Новый профиль", "Название профиля:")
+        name = self._ask_text(t("Новый профиль"), t("Название профиля:"))
         if not name:
             return
         self.settings.setdefault("profiles", {})[name] = self._profile_snapshot()
         save_settings(self.settings)
-        self.show_toast(f"Профиль «{name}» сохранён.")
+        self.show_toast(f"{t('Профиль «')}{name}{t('» сохранён.')}")
 
     def load_profile(self, name):
         profile = self.settings.get("profiles", {}).get(name)
@@ -1596,10 +1813,10 @@ class App(BaseTk):
             w.redraw()
         self._sync_control_states()
         save_settings(self.settings)
-        self.show_toast(f"Профиль «{name}» загружен.")
+        self.show_toast(f"{t('Профиль «')}{name}{t('» загружен.')}")
 
     def delete_profile(self, name):
-        if messagebox.askyesno(APP_TITLE, f"Удалить профиль «{name}»?"):
+        if messagebox.askyesno(APP_TITLE, f"{t('Удалить профиль «')}{name}»?"):
             self.settings.get("profiles", {}).pop(name, None)
             save_settings(self.settings)
 
@@ -1607,14 +1824,14 @@ class App(BaseTk):
 
     def pick_files(self):
         paths = filedialog.askopenfilenames(
-            title="Выбери файлы субтитров",
-            filetypes=[("Субтитры", "*.srt *.vtt *.ass *.ssa")],
+            title=t("Выбери файлы субтитров"),
+            filetypes=[(t("Субтитры"), "*.srt *.vtt *.ass *.ssa")],
         )
         if paths:
             self._add_paths(paths)
 
     def pick_folder(self):
-        folder = filedialog.askdirectory(title="Выбери папку с субтитрами")
+        folder = filedialog.askdirectory(title=t("Выбери папку с субтитрами"))
         if folder:
             found = []
             for ext in SUPPORTED_EXTS:
@@ -1658,10 +1875,10 @@ class App(BaseTk):
             self.file_listbox.selection_set(idx)
         menu = tk.Menu(self, tearoff=False)
         self._theme_menu(menu)
-        menu.add_command(label="Назначить группу для выбранных...", command=self._assign_group_to_selected)
-        menu.add_command(label="Сбросить группу для выбранных", command=self._clear_group_for_selected)
+        menu.add_command(label=t("Назначить группу для выбранных..."), command=self._assign_group_to_selected)
+        menu.add_command(label=t("Сбросить группу для выбранных"), command=self._clear_group_for_selected)
         menu.add_separator()
-        menu.add_command(label="Удалить из списка", command=self.remove_selected_files)
+        menu.add_command(label=t("Удалить из списка"), command=self.remove_selected_files)
         try:
             menu.tk_popup(event.x_root, event.y_root)
         finally:
@@ -1672,7 +1889,7 @@ class App(BaseTk):
         if not sel:
             return
         options = [NO_GROUP_OVERRIDE] + list(self.settings["groups"].keys())
-        choice = self._ask_choice("Группа для файлов", "Использовать группу:", options)
+        choice = self._ask_choice(t("Группа для файлов"), t("Использовать группу:"), options)
         if not choice:
             return
         file_groups = self.settings.setdefault("file_groups", {})
@@ -1711,12 +1928,12 @@ class App(BaseTk):
             label = f"{name}   →  {override}" if override else name
             self.file_listbox.insert("end", label)
         if not self.files:
-            text = "Файлов не выбрано (можно перетащить сюда)"
+            text = t("Файлов не выбрано (можно перетащить сюда)")
         elif query and not self._visible_indices:
-            text = f"Ничего не найдено по «{query}» ({len(self.files)} файл(ов) всего)"
+            text = f"{t('Ничего не найдено по «')}{query}» ({len(self.files)}{t(' файл(ов) всего)')}"
         else:
             shown = len(self._visible_indices)
-            text = f"{shown} из {len(self.files)} файл(ов)" if query else f"{len(self.files)} файл(ов) выбрано"
+            text = f"{shown}{t(' из ')}{len(self.files)}{t(' файл(ов)')}" if query else f"{len(self.files)}{t(' файл(ов) выбрано')}"
         self.file_count_lbl.config(text=text)
 
     def _on_file_select(self, event=None):
@@ -1739,21 +1956,21 @@ class App(BaseTk):
         self._preview_job = None
         path = self._current_preview_path()
         if not path:
-            self._set_preview("Выбери файл в списке слева.")
+            self._set_preview(t("Выбери файл в списке слева."))
             return
         keywords = self._keywords_for_file(path)
         if not keywords:
-            self._set_preview("Список слов пуст.")
+            self._set_preview(t("Список слов пуст."))
             return
         try:
             decide, matcher, exclude_matcher, invert = self._make_decider(keywords)
         except re.error as e:
-            self._set_preview(f"Неверное регулярное выражение: {e}")
+            self._set_preview(f"{t('Неверное регулярное выражение: ')}{e}")
             return
         try:
             _, entries = peek_subtitle_blocks(path)
         except Exception as e:
-            self._set_preview(f"Не удалось прочитать файл: {e}")
+            self._set_preview(f"{t('Не удалось прочитать файл: ')}{e}")
             return
 
         kept = [e for e in entries if decide(e["text"], e["start_sec"])]
@@ -1763,7 +1980,7 @@ class App(BaseTk):
         self.preview_text.config(state="normal")
         self.preview_text.delete("1.0", "end")
         if not kept:
-            self.preview_text.insert("1.0", "Совпадений не найдено.")
+            self.preview_text.insert("1.0", t("Совпадений не найдено."))
             self.preview_text.config(state="disabled")
             return
 
@@ -1807,7 +2024,7 @@ class App(BaseTk):
             self.preview_text.insert("end", clean[pos:] + "\n\n")
 
         if len(kept) > 200:
-            self.preview_text.insert("end", f"... и ещё {len(kept) - 200} строк (показаны первые 200)")
+            self.preview_text.insert("end", f"{t('... и ещё ')}{len(kept) - 200}{t(' строк (показаны первые 200)')}")
         self.preview_text.config(state="disabled")
 
     def _set_preview(self, text):
@@ -1857,7 +2074,7 @@ class App(BaseTk):
                 video = candidate
                 break
         if not video:
-            self.show_toast("Видео с таким же именем рядом с субтитрами не найдено.", kind="warn")
+            self.show_toast(t("Видео с таким же именем рядом с субтитрами не найдено."), kind="warn")
             return
         vlc_path = self._find_vlc()
         try:
@@ -1865,9 +2082,9 @@ class App(BaseTk):
                 subprocess.Popen([vlc_path, video, f"--start-time={int(seconds)}"])
             else:
                 os.startfile(video)
-                self.show_toast("VLC не найден — видео открыто с начала (перемотка недоступна).")
+                self.show_toast(t("VLC не найден — видео открыто с начала (перемотка недоступна)."))
         except Exception as e:
-            self.show_toast(f"Не удалось открыть видео: {e}", kind="error")
+            self.show_toast(f"{t('Не удалось открыть видео: ')}{e}", kind="error")
 
     # ---------- лог ----------
 
@@ -1887,9 +2104,9 @@ class App(BaseTk):
 
     def analyze_only(self):
         if not self.files:
-            messagebox.showwarning(APP_TITLE, "Сначала выбери файлы субтитров.")
+            messagebox.showwarning(APP_TITLE, t("Сначала выбери файлы субтитров."))
             return
-        self._set_log("Анализ...\n")
+        self._set_log(t("Анализ...\n"))
         totals = {}
         total_kept = total_all = 0
         errors = 0
@@ -1906,7 +2123,7 @@ class App(BaseTk):
                 ]
                 _, entries = peek_subtitle_blocks(path)
             except (re.error, Exception) as e:
-                self._append_log(f"✕ {os.path.basename(path)} — ошибка: {e}")
+                self._append_log(f"✕ {os.path.basename(path)}{t(' — ошибка: ')}{e}")
                 errors += 1
                 continue
             kept = [e for e in entries if decide(e["text"], e["start_sec"])]
@@ -1917,22 +2134,22 @@ class App(BaseTk):
                     totals[kw] = totals.get(kw, 0) + c
             total_kept += len(kept)
             total_all += len(entries)
-            self._append_log(f"• {os.path.basename(path)} — совпало бы {len(kept)} из {len(entries)} строк")
+            self._append_log(f"• {os.path.basename(path)}{t(' — совпало бы ')}{len(kept)}{t(' из ')}{len(entries)}{t(' строк')}")
 
-        self._append_log(f"\nИтого без сохранения: {total_kept} из {total_all} строк.")
+        self._append_log(f"{t('\nИтого без сохранения: ')}{total_kept}{t(' из ')}{total_all}{t(' строк.')}")
         if totals:
             top = sorted(totals.items(), key=lambda kv: kv[1], reverse=True)[:8]
-            self._append_log("Чаще всего встречалось: " + ", ".join(f"«{k}» — {v}" for k, v in top))
-        self.show_toast("Анализ завершён — файлы не изменены.")
+            self._append_log(t("Чаще всего встречалось: ") + ", ".join(f"«{k}» — {v}" for k, v in top))
+        self.show_toast(t("Анализ завершён — файлы не изменены."))
 
     # ---------- обработка ----------
 
     def process_files(self):
         if not self.files:
-            messagebox.showwarning(APP_TITLE, "Сначала выбери файлы субтитров.")
+            messagebox.showwarning(APP_TITLE, t("Сначала выбери файлы субтитров."))
             return
         if not any(self._keywords_for_file(p) for p in self.files):
-            messagebox.showwarning(APP_TITLE, "Сначала добавь хотя бы одно слово в список.")
+            messagebox.showwarning(APP_TITLE, t("Сначала добавь хотя бы одно слово в список."))
             return
 
         invert = self.mode_var.get() == MODE_REMOVE
@@ -1942,7 +2159,7 @@ class App(BaseTk):
         os.makedirs(out_dir, exist_ok=True)
 
         self.process_btn.set_enabled(False)
-        self._set_log("Обработка...\n")
+        self._set_log(t("Обработка...\n"))
         self.progress.config(maximum=len(self.files), value=0)
         total_files = len(self.files)
 
@@ -1956,7 +2173,7 @@ class App(BaseTk):
                 keywords = self._keywords_for_file(path)
                 try:
                     if not keywords:
-                        raise ValueError("для этого файла список слов пуст")
+                        raise ValueError(t("для этого файла список слов пуст"))
                     decide, matcher, exclude_matcher, file_invert = self._make_decider(keywords)
                     single_matchers = [
                         (kw, build_single_matcher(kw, self.whole_word_var.get(),
@@ -1970,23 +2187,23 @@ class App(BaseTk):
                             self.last_report.append({"file": os.path.basename(path), "keyword": kw, "count": count})
                             report_totals[kw] = report_totals.get(kw, 0) + count
                     name = os.path.basename(out_path)
-                    line = f"✓ {name} — {kept} из {total} строк" if kept else \
-                           f"⚠ {name} — 0 из {total} строк (совпадений нет)"
+                    line = f"✓ {name} — {kept}{t(' из ')}{total}{t(' строк')}" if kept else \
+                           f"⚠ {name}{t(' — 0 из ')}{total}{t(' строк (совпадений нет)')}"
                     total_kept += kept
                     total_blocks += total
                 except Exception as e:
-                    line = f"✕ {os.path.basename(path)} — ошибка: {e}"
+                    line = f"✕ {os.path.basename(path)}{t(' — ошибка: ')}{e}"
                     failures += 1
 
                 self.after(0, lambda i=idx, ln=line: (self._append_log(ln), self.progress.config(value=i)))
 
             def finish():
-                self._append_log(f"\nИтого: {total_kept} из {total_blocks} строк в {total_files - failures} файл(ах).")
+                self._append_log(f"{t('\nИтого: ')}{total_kept}{t(' из ')}{total_blocks}{t(' строк в ')}{total_files - failures}{t(' файл(ах).')}")
                 if report_totals:
                     top = sorted(report_totals.items(), key=lambda kv: kv[1], reverse=True)[:5]
                     top_str = ", ".join(f"«{k}» — {v}" for k, v in top)
-                    self._append_log(f"Чаще всего встречалось: {top_str}")
-                self._append_log(f"\nГотово. Результаты в папке:\n{out_dir}")
+                    self._append_log(f"{t('Чаще всего встречалось: ')}{top_str}")
+                self._append_log(f"{t('\nГотово. Результаты в папке:\n')}{out_dir}")
                 self.last_out_dir = out_dir
                 self.open_folder_btn.config(state="normal")
                 has_report = bool(self.last_report)
@@ -1995,7 +2212,7 @@ class App(BaseTk):
                 self.copy_btn.config(state="normal")
                 self.process_btn.set_enabled(True)
                 self._add_history_entry(total_files - failures, total_kept, total_blocks, out_dir)
-                self.show_toast(f"Готово: {total_kept} из {total_blocks} строк в {total_files - failures} файл(ах).")
+                self.show_toast(f"{t('Готово: ')}{total_kept}{t(' из ')}{total_blocks}{t(' строк в ')}{total_files - failures}{t(' файл(ах).')}")
 
             self.after(0, finish)
 
@@ -2016,7 +2233,7 @@ class App(BaseTk):
         entry = {
             "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "files": files_count,
-            "mode": "Убрать" if self.mode_var.get() == MODE_REMOVE else "Оставить",
+            "mode": t("Убрать") if self.mode_var.get() == MODE_REMOVE else t("Оставить"),
             "group": self.group_combo.get(),
             "kept": kept,
             "total": total,
@@ -2029,21 +2246,21 @@ class App(BaseTk):
 
     def show_history(self):
         win = tk.Toplevel(self)
-        win.title("История обработок")
+        win.title(t("История обработок"))
         win.configure(bg=self.theme["panel"])
         win.geometry("560x360")
         win.transient(self)
 
         history = list(reversed(self.settings.get("history", [])))
         if not history:
-            ttk.Label(win, text="Пока пусто — здесь появится история после первой обработки.",
+            ttk.Label(win, text=t("Пока пусто — здесь появится история после первой обработки."),
                       style="Panel.TLabel", wraplength=500).pack(padx=16, pady=20)
             return
 
         box = tk.Listbox(win, bg=self.theme["panel2"], fg=self.theme["text"], relief="flat", font=FONT_MONO)
         box.pack(fill="both", expand=True, padx=12, pady=12)
         for h in history:
-            box.insert("end", f"{h['ts']}  ·  {h['files']} файл(ов)  ·  {h['mode']} ({h['group']})  ·  {h['kept']}/{h['total']} строк")
+            box.insert("end", f"{h['ts']}  ·  {h['files']}{t(' файл(ов)  ·  ')}{h['mode']} ({h['group']})  ·  {h['kept']}/{h['total']}{t(' строк')}")
 
         def open_selected(event=None):
             sel = box.curselection()
@@ -2053,57 +2270,57 @@ class App(BaseTk):
             if os.path.isdir(entry.get("out_dir", "")):
                 os.startfile(entry["out_dir"])
             else:
-                self.show_toast("Папка результата больше не существует.", kind="warn")
+                self.show_toast(t("Папка результата больше не существует."), kind="warn")
 
         box.bind("<Double-Button-1>", open_selected)
-        ttk.Label(win, text="Двойной клик — открыть папку с результатом этого запуска.",
+        ttk.Label(win, text=t("Двойной клик — открыть папку с результатом этого запуска."),
                   style="Panel.TLabel").pack(anchor="w", padx=12, pady=(0, 10))
 
     # ---------- экспорт ----------
 
     def export_csv(self):
         if not self.last_report:
-            messagebox.showinfo(APP_TITLE, "Сначала обработай файлы.")
+            messagebox.showinfo(APP_TITLE, t("Сначала обработай файлы."))
             return
         path = filedialog.asksaveasfilename(
-            title="Сохранить отчёт", defaultextension=".csv",
+            title=t("Сохранить отчёт"), defaultextension=".csv",
             filetypes=[("CSV", "*.csv")], initialfile="report.csv",
         )
         if not path:
             return
         with open(path, "w", newline="", encoding="utf-8-sig") as f:
             writer = csv.writer(f, delimiter=";")
-            writer.writerow(["Файл", "Слово", "Найдено раз"])
+            writer.writerow([t("Файл"), t("Слово"), t("Найдено раз")])
             for row in self.last_report:
                 writer.writerow([row["file"], row["keyword"], row["count"]])
-        self.show_toast(f"Отчёт сохранён: {os.path.basename(path)}")
+        self.show_toast(f"{t('Отчёт сохранён: ')}{os.path.basename(path)}")
 
     def export_xlsx(self):
         if not OPENPYXL_AVAILABLE:
-            messagebox.showinfo(APP_TITLE, "Для экспорта в Excel нужна библиотека openpyxl:\npip install openpyxl")
+            messagebox.showinfo(APP_TITLE, t("Для экспорта в Excel нужна библиотека openpyxl:\npip install openpyxl"))
             return
         if not self.last_report:
-            messagebox.showinfo(APP_TITLE, "Сначала обработай файлы.")
+            messagebox.showinfo(APP_TITLE, t("Сначала обработай файлы."))
             return
         path = filedialog.asksaveasfilename(
-            title="Сохранить отчёт", defaultextension=".xlsx",
+            title=t("Сохранить отчёт"), defaultextension=".xlsx",
             filetypes=[("Excel", "*.xlsx")], initialfile="report.xlsx",
         )
         if not path:
             return
-        self._write_xlsx_report(path, self.last_report, "Отчёт")
-        self.show_toast(f"Отчёт сохранён: {os.path.basename(path)}")
+        self._write_xlsx_report(path, self.last_report, t("Отчёт"))
+        self.show_toast(f"{t('Отчёт сохранён: ')}{os.path.basename(path)}")
 
     def export_all_groups(self):
         if not OPENPYXL_AVAILABLE:
             fmt = "csv"
         else:
-            choice = self._ask_choice("Формат отчёта", "В каком формате сохранить:", ["xlsx", "csv"], "xlsx")
+            choice = self._ask_choice(t("Формат отчёта"), t("В каком формате сохранить:"), ["xlsx", "csv"], "xlsx")
             if not choice:
                 return
             fmt = choice
         if not self.files:
-            messagebox.showwarning(APP_TITLE, "Сначала выбери файлы субтитров.")
+            messagebox.showwarning(APP_TITLE, t("Сначала выбери файлы субтитров."))
             return
 
         rows = []
@@ -2129,12 +2346,12 @@ class App(BaseTk):
                         rows.append({"group": group_name, "file": os.path.basename(path), "keyword": kw, "count": c})
 
         if not rows:
-            messagebox.showinfo(APP_TITLE, "Совпадений не найдено ни в одной группе.")
+            messagebox.showinfo(APP_TITLE, t("Совпадений не найдено ни в одной группе."))
             return
 
         default_name = f"report_all_groups.{fmt}"
         path = filedialog.asksaveasfilename(
-            title="Сохранить отчёт по всем группам", defaultextension=f".{fmt}",
+            title=t("Сохранить отчёт по всем группам"), defaultextension=f".{fmt}",
             filetypes=[("Excel", "*.xlsx")] if fmt == "xlsx" else [("CSV", "*.csv")],
             initialfile=default_name,
         )
@@ -2142,20 +2359,20 @@ class App(BaseTk):
             return
 
         if fmt == "xlsx":
-            self._write_xlsx_report(path, rows, "Все группы", with_group=True)
+            self._write_xlsx_report(path, rows, t("Все группы"), with_group=True)
         else:
             with open(path, "w", newline="", encoding="utf-8-sig") as f:
                 writer = csv.writer(f, delimiter=";")
-                writer.writerow(["Группа", "Файл", "Слово", "Найдено раз"])
+                writer.writerow([t("Группа"), t("Файл"), t("Слово"), t("Найдено раз")])
                 for row in rows:
                     writer.writerow([row["group"], row["file"], row["keyword"], row["count"]])
-        self.show_toast(f"Отчёт по всем группам сохранён: {os.path.basename(path)}")
+        self.show_toast(f"{t('Отчёт по всем группам сохранён: ')}{os.path.basename(path)}")
 
     def _write_xlsx_report(self, path, rows, sheet_title, with_group=False):
         wb = Workbook()
         ws = wb.active
         ws.title = sheet_title[:31]
-        headers = (["Группа"] if with_group else []) + ["Файл", "Слово", "Найдено раз"]
+        headers = ([t("Группа")] if with_group else []) + [t("Файл"), t("Слово"), t("Найдено раз")]
         ws.append(headers)
         for row in rows:
             values = ([row["group"]] if with_group else []) + [row["file"], row["keyword"], row["count"]]
@@ -2165,13 +2382,13 @@ class App(BaseTk):
         for row in rows:
             totals[row["keyword"]] = totals.get(row["keyword"], 0) + row["count"]
         if totals:
-            chart_ws = wb.create_sheet("По словам")
-            chart_ws.append(["Слово", "Всего"])
+            chart_ws = wb.create_sheet(t("По словам"))
+            chart_ws.append([t("Слово"), t("Всего")])
             for kw, count in sorted(totals.items(), key=lambda kv: kv[1], reverse=True):
                 chart_ws.append([kw, count])
             chart = BarChart()
-            chart.title = "Найдено раз по словам"
-            chart.y_axis.title = "Раз"
+            chart.title = t("Найдено раз по словам")
+            chart.y_axis.title = t("Раз")
             data = Reference(chart_ws, min_col=2, min_row=1, max_row=chart_ws.max_row)
             cats = Reference(chart_ws, min_col=1, min_row=2, max_row=chart_ws.max_row)
             chart.add_data(data, titles_from_data=True)
@@ -2182,7 +2399,7 @@ class App(BaseTk):
 
     def copy_summary_to_clipboard(self):
         if not self.last_report:
-            messagebox.showinfo(APP_TITLE, "Сначала обработай файлы.")
+            messagebox.showinfo(APP_TITLE, t("Сначала обработай файлы."))
             return
         totals = {}
         for row in self.last_report:
@@ -2191,7 +2408,7 @@ class App(BaseTk):
         text = "\n".join(lines)
         self.clipboard_clear()
         self.clipboard_append(text)
-        self.show_toast("Сводка скопирована в буфер обмена.")
+        self.show_toast(t("Сводка скопирована в буфер обмена."))
 
     # ---------- обновления ----------
 
@@ -2211,7 +2428,7 @@ class App(BaseTk):
                         break
             except Exception as e:
                 self.after(0, lambda: messagebox.showinfo(
-                    APP_TITLE, f"Не удалось проверить обновления.\n({e})"
+                    APP_TITLE, f"{t('Не удалось проверить обновления.\n(')}{e})"
                 ))
                 return
 
@@ -2219,7 +2436,7 @@ class App(BaseTk):
                 if latest and latest != APP_VERSION:
                     self._offer_update(latest, html_url, asset_url)
                 else:
-                    messagebox.showinfo(APP_TITLE, "У тебя установлена последняя версия.")
+                    messagebox.showinfo(APP_TITLE, t("У тебя установлена последняя версия."))
 
             self.after(0, show)
 
@@ -2230,9 +2447,8 @@ class App(BaseTk):
         if can_auto:
             answer = messagebox.askyesnocancel(
                 APP_TITLE,
-                f"Доступна новая версия: {latest} (у тебя {APP_VERSION}).\n\n"
-                "Да — скачать и установить автоматически.\n"
-                "Нет — открыть страницу релиза в браузере.",
+                f"{t('Доступна новая версия: ')}{latest}{t(' (у тебя ')}{APP_VERSION}"
+                + t(').\n\nДа — скачать и установить автоматически.\nНет — открыть страницу релиза в браузере.'),
             )
             if answer is None:
                 return
@@ -2242,12 +2458,12 @@ class App(BaseTk):
             webbrowser.open(html_url)
         else:
             if messagebox.askyesno(
-                APP_TITLE, f"Доступна новая версия: {latest} (у тебя {APP_VERSION}).\nОткрыть страницу релиза?"
+                APP_TITLE, f"{t('Доступна новая версия: ')}{latest}{t(' (у тебя ')}{APP_VERSION}{t(').\nОткрыть страницу релиза?')}"
             ):
                 webbrowser.open(html_url)
 
     def _download_and_install(self, asset_url):
-        self.show_toast("Скачиваю обновление...")
+        self.show_toast(t("Скачиваю обновление..."))
 
         def worker():
             try:
@@ -2280,7 +2496,7 @@ class App(BaseTk):
 
                 self.after(0, launch_and_exit)
             except Exception as e:
-                self.after(0, lambda: messagebox.showerror(APP_TITLE, f"Не удалось установить обновление:\n{e}"))
+                self.after(0, lambda: messagebox.showerror(APP_TITLE, f"{t('Не удалось установить обновление:\n')}{e}"))
 
         threading.Thread(target=worker, daemon=True).start()
 
